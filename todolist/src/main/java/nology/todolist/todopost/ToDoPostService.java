@@ -52,4 +52,13 @@ public class ToDoPostService {
     return Optional.of(updateToDoPost);
   }
 
+  public boolean deleteToDoPostById(Long id) {
+    Optional<ToDoPost> result = this.findToDoPostById(id);
+    if (result.isEmpty()) {
+      return false;
+    }
+    this.repo.delete(result.get());
+    return true;
+  }
+
 }
