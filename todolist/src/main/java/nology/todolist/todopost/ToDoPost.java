@@ -37,6 +37,10 @@ public class ToDoPost {
   private Date createdAt;
 
   @Column
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date updatedAt;
+
+  @Column
   private String category;
 
   public void setId(Long id) {
@@ -69,6 +73,14 @@ public class ToDoPost {
 
   public String getCategory() {
     return category;
+  }
+
+  public void setUpdatedAt(Date updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
+  public Date getUpdatedAt() {
+    return updatedAt;
   }
 
 }
