@@ -1,5 +1,6 @@
 package nology.todolist.category;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +12,13 @@ public class CategoryService {
   @Autowired
   private CategoryRepository repo;
 
+  @Autowired
+  private ModelMapper mapper;
+
   public Category create(@Valid CreateCategoryDTO data) throws Exception {
-    Category newCategory = new Category();
+    // Category newCategory = new Category();
+    Category newCategory = mapper.map(data, Category.class);
+
     newCategory.setName(data.getName().trim());
     if (repo.existsByName(data.getName().trim())) {
       throw new Exception("name already exists");

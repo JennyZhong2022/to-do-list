@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +16,16 @@ public class ToDoPostService {
   @Autowired
   private ToDoPostRepository repo;
 
+  @Autowired
+  private ModelMapper mapper;
+
   public ToDoPost createToDoPost(@Valid CreateToDoPostDTO data) {
-    ToDoPost newPost = new ToDoPost();
+    // ToDoPost newPost = new ToDoPost();
     // newPost.setContent(data.getContent().trim());
     // newPost.setCategory(data.getCategory().trim().toLowerCase());
     // newPost.setCreatedAt(new Date());
     // newPost.setUpdatedAt(new Date());
+    ToDoPost newPost = mapper.map(data, ToDoPost.class);
     return this.repo.save(newPost);
 
   }
