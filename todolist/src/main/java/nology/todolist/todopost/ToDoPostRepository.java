@@ -2,6 +2,6 @@ package nology.todolist.todopost;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ToDoPostRespository extends JpaRepository<ToDoPost, Long> {
+public interface ToDoPostRepository extends JpaRepository<ToDoPost, Long> {
 
 }

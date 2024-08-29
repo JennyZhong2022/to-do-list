@@ -13,14 +13,14 @@ import jakarta.validation.Valid;
 public class ToDoPostService {
 
   @Autowired
-  private ToDoPostRespository repo;
+  private ToDoPostRepository repo;
 
   public ToDoPost createToDoPost(@Valid CreateToDoPostDTO data) {
     ToDoPost newPost = new ToDoPost();
-    newPost.setContent(data.getContent().trim());
-    newPost.setCategory(data.getCategory().trim().toLowerCase());
-    newPost.setCreatedAt(new Date());
-    newPost.setUpdatedAt(new Date());
+    // newPost.setContent(data.getContent().trim());
+    // newPost.setCategory(data.getCategory().trim().toLowerCase());
+    // newPost.setCreatedAt(new Date());
+    // newPost.setUpdatedAt(new Date());
     return this.repo.save(newPost);
 
   }
@@ -39,15 +39,15 @@ public class ToDoPostService {
       return result;
     }
     ToDoPost foundToDoPost = result.get();
-    if (data.getContent() != null) {
-      foundToDoPost.setContent(data.getContent().trim());
+    // if (data.getContent() != null) {
+    // foundToDoPost.setContent(data.getContent().trim());
 
-    }
-    if (data.getCategory() != null) {
-      foundToDoPost.setCategory(data.getCategory().trim().toLowerCase());
+    // }
+    // if (data.getCategory() != null) {
+    // foundToDoPost.setCategory(data.getCategory().trim().toLowerCase());
 
-    }
-    foundToDoPost.setUpdatedAt(new Date());
+    // }
+    // foundToDoPost.setUpdatedAt(new Date());
     ToDoPost updateToDoPost = this.repo.save(foundToDoPost);
     return Optional.of(updateToDoPost);
   }
