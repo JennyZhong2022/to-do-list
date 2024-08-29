@@ -19,7 +19,8 @@ public class CategoryService {
     // Category newCategory = new Category();
     Category newCategory = mapper.map(data, Category.class);
 
-    newCategory.setName(data.getName().trim());
+    // newCategory.setName(data.getName().trim());
+
     if (repo.existsByName(data.getName().trim())) {
       throw new Exception("name already exists");
     }

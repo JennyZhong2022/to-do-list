@@ -14,14 +14,36 @@ public class ModelMapperConfig {
   @Bean
   public ModelMapper modelMapper() {
     ModelMapper mapper = new ModelMapper();
-    mapper.getConfiguration().setSkipNullEnabled(false);
-    // mapper.typeMap(String.class, String.class).
-    // .setConverter(new StringTrimConverter());
-    // mapper.typeMap(CreateCategoryDTO.class, Category.class).addMappings(m -> m
-    // .using(new
-    // CreateCategoryDTOToCategoryConvertor()).map(CreateCategoryDTO::getName,
-    // Category::setName));
+    mapper.getConfiguration().setSkipNullEnabled(true);
+    mapper.typeMap(String.class, String.class)
+        .setConverter(new StringTrimConverter());
+    mapper.typeMap(CreateCategoryDTO.class, Category.class).addMappings(
+        m -> m.using(new CategoryDTOStringToLowerCaseConverter()).map(CreateCategoryDTO::getName, Category::setName));
     return mapper;
+
+  }
+
+  private class StringTrimConverter implements Converter<String, String> {
+
+    @Override
+    public String convert(MappingContext<String, String> context) {
+      if (context.getSource() == null) {
+        return null;
+      }
+      return context.getSource().trim();
+    }
+
+  }
+
+  private class CategoryDTOStringToLowerCaseConverter implements Converter<String, String> {
+
+    @Override
+    public String convert(MappingContext<String, String> context) {
+      if (context.getSource() == null) {
+        return null;
+      }
+      return context.getSource().trim().toLowerCase();
+    }
 
   }
 
