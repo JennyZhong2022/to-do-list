@@ -8,7 +8,7 @@ const ToDoPostsPage = () => {
 
   useEffect(() => {
     getAllToDoPosts()
-      .then(data => setPosts(data))
+      .then(data => { setPosts(data), console.log(data) })
       .catch(e=>console.log(e)
     )
     

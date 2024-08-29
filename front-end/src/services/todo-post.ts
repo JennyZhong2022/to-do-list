@@ -5,7 +5,7 @@ const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
 export interface ToDoPostResponse{
   id: number
   content: string
-  createAt: string;
+  createdAt: string;
   updatedAt: string;
   category: string;
 }
@@ -49,7 +49,7 @@ export const getToDoPostById = async(id:number) => {
 }
 
 
-export const updateToDoPostById = async(id:number, data:ToDoPostResponse)  => {
+export const updateToDoPostById = async(id:number, data:ToDoPostFormData)  => {
   const response = await fetch(baseURL + `/posts/${id}`,
     {
       method: "PATCH",

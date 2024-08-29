@@ -6,11 +6,12 @@ import { useForm } from 'react-hook-form';
 
 interface ToDoPostFormProps{
   formType: 'create' | 'edit';
+  todo?:ToDoPostFormData
   onSubmit: (data: ToDoPostFormData) => unknown;
 }
 
 
-const ToDoPostForm = ({ onSubmit, formType }: ToDoPostFormProps) => {
+const ToDoPostForm = ({ onSubmit,todo, formType }: ToDoPostFormProps) => {
   const {
     reset,
     register,
@@ -18,6 +19,7 @@ const ToDoPostForm = ({ onSubmit, formType }: ToDoPostFormProps) => {
     handleSubmit,
   } = useForm<ToDoPostFormData>({
     resolver: zodResolver(schema),
+    defaultValues: todo, // Prefill form with blog data if available (for edit mode)
    
   });
 
