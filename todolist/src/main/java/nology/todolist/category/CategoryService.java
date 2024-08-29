@@ -1,5 +1,7 @@
 package nology.todolist.category;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,10 @@ public class CategoryService {
     }
     return this.repo.save(newCategory);
 
+  }
+
+  public List<Category> findAll() {
+    return this.repo.findAll();
   }
 
 }
