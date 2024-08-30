@@ -1,3 +1,4 @@
+import { CategoryFormData } from "../components/CategoryForm/schema";
 import { ToDoPostFormData } from "../components/ToDoPostForm/schema";
 
 const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
@@ -54,6 +55,24 @@ export const createToDoPost =async (data:ToDoPostFormData) => {
   }
   return (await response.json()) as ToDoPostResponse;
 }
+
+
+export const createCategory=async(data:CategoryFormData) => {
+  const response = await fetch(baseURL + '/categories', {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+    }
+
+  });
+  if (!response.ok) {
+    throw new Error("Failed to fetch");
+
+  }
+  return (await response.json()) as CategoryResponse;
+}
+
 
 
 export const getToDoPostById = async(id:number) => {
