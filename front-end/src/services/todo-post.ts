@@ -7,12 +7,16 @@ export interface ToDoPostResponse{
   content: string
   createdAt: string;
   updatedAt: string;
-  category:{ name: string; }
+  category: {
+    id: number;
+    name: string;
+  }
 }
 
 export interface CategoryResponse{
   id: number
   name: string;
+
 }
 
 export const getAllToDoPosts = async() => {

@@ -57,18 +57,8 @@ public class ToDoPostService {
     if (result.isEmpty()) {
       return result;
     }
-    // ToDoPost foundToDoPost = mapper.map(data, ToDoPost.class);
-    ToDoPost foundToDoPost = result.get();
-    mapper.map(data, foundToDoPost);
-    // if (data.getContent() != null) {
-    // foundToDoPost.setContent(data.getContent().trim());
+    ToDoPost foundToDoPost = mapper.map(data, ToDoPost.class);
 
-    // }
-    // if (data.getCategory() != null) {
-    // foundToDoPost.setCategory(data.getCategory().trim().toLowerCase());
-
-    // }
-    // foundToDoPost.setUpdatedAt(new Date());
     ValidationErrors errors = new ValidationErrors();
     if (data.getCategoryId() != null) {
 

@@ -48,7 +48,7 @@ const EditToDoPostPage = () => {
       {fetchStatus === "FAILURE" && <p>{error?.message}</p>}
     {fetchStatus==="SUCCESS" && todo && (
       <ToDoPostForm
-        todo={todo}
+          todo={{ ...todo,categoryId:todo.category.id }}
         onSubmit={handleUpdateToDoPost}
         formType="edit"
       />

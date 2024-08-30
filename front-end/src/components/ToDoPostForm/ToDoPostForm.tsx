@@ -42,7 +42,8 @@ const ToDoPostForm = ({ onSubmit,todo, formType }: ToDoPostFormProps) => {
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
     <div className={classes.field}>
       <label htmlFor="category">Category</label>
-      <select id="category" {...register('categoryId', { required: true , valueAsNumber: true })}>
+        <select id="category" {...register('categoryId', { required: true, valueAsNumber: true })}>    
+          {/* alueAsNumber: true to convert string to number */}
         <option value="">Select a category</option>
         {categories.map((category) => (
           <option key={category.id} value={category.id}>
