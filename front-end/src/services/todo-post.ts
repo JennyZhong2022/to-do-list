@@ -10,6 +10,10 @@ export interface ToDoPostResponse{
   category:{ name: string; }
 }
 
+export interface CategoryResponse{
+  id: number
+  name: string;
+}
 
 export const getAllToDoPosts = async() => {
   const response = await fetch(baseURL + '/posts');
@@ -19,6 +23,15 @@ export const getAllToDoPosts = async() => {
   }
   return (await response.json()) as ToDoPostResponse[];
   
+}
+
+export const getAllCategories = async () => {
+  const response = await fetch(baseURL + '/categories');
+  if (!response.ok) {
+    throw new Error("Failed to fetch");
+
+  }
+  return (await response.json()) as CategoryResponse[];
 }
 
 

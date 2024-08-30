@@ -1,7 +1,10 @@
+import { useEffect, useState } from 'react';
 import { schema, ToDoPostFormData } from './schema';
 import classes from './ToDoPostForm.module.scss';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { CategoryResponse, getAllCategories } from '../../services/todo-post';
+
 
 
 interface ToDoPostFormProps{
@@ -23,22 +26,36 @@ const ToDoPostForm = ({ onSubmit,todo, formType }: ToDoPostFormProps) => {
    
   });
 
+  const [categories, setCategories] = useState<CategoryResponse[]>([]);
+
+  useEffect(() => {
+       getAllCategories()
+      .then(data=>setCategories(data))
+      .catch(e=>console.error('Failed to fetch categories',e))
+    
+  },[])
+
 
   if (isSubmitSuccessful) reset();
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-   
-
-      <div className={classes.field}>
-        <label htmlFor="category">Category</label>
-        <input id="category" type="text" {...register('category')} />
-        {errors?.category && (
-          <small className={classes.error_text}>
-            {errors.category.message}
-          </small>
-        )}
-      </div>
+    <div className={classes.field}>
+      <label htmlFor="category">Category</label>
+      <select id="category" {...register('categoryId', { required: true , valueAsNumber: true })}>
+        <option value="">Select a category</option>
+        {categories.map((category) => (
+          <option key={category.id} value={category.id}>
+            {category.name}
+          </option>
+        ))}
+      </select>
+      {errors?.categoryId && (
+        <small className={classes.error_text}>
+          {errors.categoryId.message}
+        </small>
+      )}
+    </div>
 
       <div className={classes.field}>
         <label htmlFor="content">Content</label>
