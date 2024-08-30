@@ -2,7 +2,9 @@ package nology.todolist.todopost;
 
 import org.hibernate.validator.constraints.Length;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class CreateToDoPostDTO {
 
@@ -10,20 +12,16 @@ public class CreateToDoPostDTO {
   @Length(min = 5)
   private String content;
 
-  @NotBlank
-  private String category;
-
-  @Override
-  public String toString() {
-    return "CreateToDoPostDTO [content=" + content + ", category=" + category + "]";
-  }
+  @NotNull
+  @Min(1)
+  private Long categoryId;
 
   public String getContent() {
     return content;
   }
 
-  public String getCategory() {
-    return category;
+  public Long getCategoryId() {
+    return categoryId;
   }
 
 }

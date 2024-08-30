@@ -27,7 +27,7 @@ public class ToDoController {
   private ToDoPostService toDoPostService;
 
   @PostMapping
-  public ResponseEntity<ToDoPost> createToDoPost(@Valid @RequestBody CreateToDoPostDTO data) {
+  public ResponseEntity<ToDoPost> createToDoPost(@Valid @RequestBody CreateToDoPostDTO data) throws Exception {
     ToDoPost createdPost = this.toDoPostService.createToDoPost(data);
     return new ResponseEntity<ToDoPost>(createdPost, HttpStatus.CREATED);
   }
@@ -48,7 +48,7 @@ public class ToDoController {
 
   @PatchMapping("/{id}")
   public ResponseEntity<ToDoPost> updateToDoPostById(@PathVariable Long id,
-      @Valid @RequestBody UpdateToDoPostDTO data) throws NotFoundException {
+      @Valid @RequestBody UpdateToDoPostDTO data) throws Exception {
     Optional<ToDoPost> result = this.toDoPostService.updateToDoPostById(id, data);
     ToDoPost foundToDoPost = result
         .orElseThrow(() -> new NotFoundException("Couldn't find to do list with id " + id));

@@ -1,6 +1,7 @@
 package nology.todolist.category;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,10 @@ public class CategoryService {
 
   public List<Category> findAll() {
     return this.repo.findAll();
+  }
+
+  public Optional<Category> findById(Long categoryId) {
+    return this.repo.findById(categoryId);
   }
 
 }

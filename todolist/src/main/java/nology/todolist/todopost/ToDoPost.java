@@ -1,5 +1,7 @@
 package nology.todolist.todopost;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -20,6 +22,7 @@ public class ToDoPost extends BaseEntity {
 
   @ManyToOne
   @JoinColumn(name = "category_id")
+  @JsonIgnoreProperties("posts")
   private Category category;
 
   public void setContent(String content) {
