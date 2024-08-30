@@ -22,7 +22,7 @@ const ToDoPostForm = ({ onSubmit,todo, formType }: ToDoPostFormProps) => {
     handleSubmit,
   } = useForm<ToDoPostFormData>({
     resolver: zodResolver(schema),
-    defaultValues: todo, // Prefill form with blog data if available (for edit mode)
+    defaultValues: todo, // Prefill form with blog data 
    
   });
 
@@ -43,7 +43,7 @@ const ToDoPostForm = ({ onSubmit,todo, formType }: ToDoPostFormProps) => {
     <div className={classes.field}>
       <label htmlFor="category">Category</label>
         <select id="category" {...register('categoryId', { required: true, valueAsNumber: true })}>    
-          {/* alueAsNumber: true to convert string to number */}
+          {/* valueAsNumber: true to convert string to number */}
         <option value="">Select a category</option>
         {categories.map((category) => (
           <option key={category.id} value={category.id}>

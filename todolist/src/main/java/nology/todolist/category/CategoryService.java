@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import jakarta.validation.Valid;
 import nology.todolist.common.ValidationErrors;
 import nology.todolist.common.exceptions.ServiceValidationException;
+import nology.todolist.todopost.ToDoPost;
 
 @Service
 public class CategoryService {
@@ -45,6 +46,15 @@ public class CategoryService {
 
   public Optional<Category> findById(Long categoryId) {
     return this.repo.findById(categoryId);
+  }
+
+  public boolean deleteCategoryById(Long id) {
+    Optional<Category> result = this.findById(id);
+    if (result.isEmpty()) {
+      return false;
+    }
+    this.repo.delete(result.get());
+    return true;
   }
 
 }

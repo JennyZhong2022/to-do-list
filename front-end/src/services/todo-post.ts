@@ -97,3 +97,23 @@ export const deleteToDoPostById = async(id:number) => {
   return true
 }
 
+
+export const deleteCategoryById = async (id: number) => {
+  try {
+    const response = await fetch(baseURL + `/categories/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      const errorMessage = await response.text(); 
+      console.error(`Failed to delete category: ${response.status} ${response.statusText}`, errorMessage);
+      throw new Error("Failed to delete category");
+    }
+
+    return true; 
+  } catch (error) {
+    console.error('Error during delete request:', error);
+    throw error; 
+  }
+};
+

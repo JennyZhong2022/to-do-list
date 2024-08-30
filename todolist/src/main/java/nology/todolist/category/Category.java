@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -19,7 +20,8 @@ public class Category extends BaseEntity {
   @Column(unique = true)
   private String name;
 
-  @OneToMany(mappedBy = "category")
+  @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+  // cascade = CascadeType.ALL,, orphanRemoval = true: Removes child entities
   @JsonIgnoreProperties("category")
   private List<ToDoPost> posts;
 

@@ -3,18 +3,18 @@ import { CategoryResponse } from "../../services/todo-post"
 
 interface CategoryProps{
   category: CategoryResponse
-  // onDelete: (id:number)=>Promise<unknown>
+  onDelete: (id:number)=>Promise<unknown>
 }
 
 
-const CategoryList = ({category}:CategoryProps) => {
+const CategoryList = ({category,onDelete}:CategoryProps) => {
 
 
   return (
     <div>
       
       <p>{category.name}</p>
-      {/* <button onClick={() => onDelete(post.id)}>Delete</button> */}
+      <button onClick={() => onDelete(category.id)}>Delete</button>
       
     </div>
   )
