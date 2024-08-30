@@ -21,7 +21,7 @@ const ToDoPost = ({ post, onDelete }: ToDoPostProps) => {
     <div>
       
       <p>{post.content}</p>
-      <h3>{post.category}</h3>
+      <h3>{post.category.name}</h3>
       <h4>CreateAt:{dayjs(post.createdAt).fromNow()}</h4>
       <h4>UpdateAT:{dayjs(post.updatedAt).fromNow()}</h4>
       <button onClick={() => onDelete(post.id)}>Delete</button>

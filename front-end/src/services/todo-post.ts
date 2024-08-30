@@ -7,7 +7,7 @@ export interface ToDoPostResponse{
   content: string
   createdAt: string;
   updatedAt: string;
-  category: string;
+  category:{ name: string; }
 }
 
 

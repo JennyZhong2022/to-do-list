@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.validation.Valid;
+import nology.todolist.common.ValidationErrors;
+import nology.todolist.common.exceptions.ServiceValidationException;
 
 @Service
 public class CategoryService {
@@ -19,14 +21,20 @@ public class CategoryService {
   private ModelMapper mapper;
 
   public Category create(@Valid CreateCategoryDTO data) throws Exception {
-    // Category newCategory = new Category();
-    Category newCategory = mapper.map(data, Category.class);
+    ValidationErrors errors = new ValidationErrors();
 
     // newCategory.setName(data.getName().trim());
 
     if (repo.existsByName(data.getName().trim())) {
-      throw new Exception("name already exists");
+      errors.addError("name", String.format("category with name '%s' already exists", data.getName().trim()));
     }
+
+    Category newCategory = mapper.map(data, Category.class);
+
+    if (errors.hasErrors()) {
+      throw new ServiceValidationException(errors);
+    }
+
     return this.repo.save(newCategory);
 
   }

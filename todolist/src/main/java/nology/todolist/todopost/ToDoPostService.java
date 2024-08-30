@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import jakarta.validation.Valid;
 import nology.todolist.category.Category;
 import nology.todolist.category.CategoryService;
+import nology.todolist.common.ValidationErrors;
+import nology.todolist.common.exceptions.ServiceValidationException;
 
 @Service
 public class ToDoPostService {
@@ -24,18 +26,18 @@ public class ToDoPostService {
   private ModelMapper mapper;
 
   public ToDoPost createToDoPost(@Valid CreateToDoPostDTO data) throws Exception {
-    // ToDoPost newPost = new ToDoPost();
-    // newPost.setContent(data.getContent().trim());
-    // newPost.setCategory(data.getCategory().trim().toLowerCase());
-    // newPost.setCreatedAt(new Date());
-    // newPost.setUpdatedAt(new Date());
+    ValidationErrors errors = new ValidationErrors();
     ToDoPost newPost = mapper.map(data, ToDoPost.class);
     Optional<Category> categoryResult = this.categoryService.findById(data.getCategoryId());
 
     if (categoryResult.isEmpty()) {
-      throw new Exception("Category doesn't exist");
+      errors.addError("category", String.format("Category with id %s does not exist", data.getCategoryId()));
     } else {
       newPost.setCategory(categoryResult.get());
+    }
+
+    if (errors.hasErrors()) {
+      throw new ServiceValidationException(errors);
     }
 
     return this.repo.save(newPost);
@@ -67,16 +69,20 @@ public class ToDoPostService {
 
     // }
     // foundToDoPost.setUpdatedAt(new Date());
-
+    ValidationErrors errors = new ValidationErrors();
     if (data.getCategoryId() != null) {
 
       Optional<Category> categoryResult = this.categoryService.findById(data.getCategoryId());
 
       if (categoryResult.isEmpty()) {
-        throw new Exception("Category doesn't exist");
+        errors.addError("category", String.format("Category with id %s does not exist", data.getCategoryId()));
       } else {
         foundToDoPost.setCategory(categoryResult.get());
       }
+    }
+
+    if (errors.hasErrors()) {
+      throw new ServiceValidationException(errors);
     }
     ToDoPost updateToDoPost = this.repo.save(foundToDoPost);
 
