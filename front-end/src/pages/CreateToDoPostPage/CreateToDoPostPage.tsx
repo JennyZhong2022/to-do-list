@@ -3,19 +3,25 @@ import { createToDoPost } from "../../services/todo-post"
 import ToDoPostForm from "../../components/ToDoPostForm/ToDoPostForm"
 import { ToDoPostFormData } from "../../components/ToDoPostForm/schema"
 
+interface CreateToDoPostPageProps {
+  onPostCreated: () => void
+}
 
-const CreateToDoPostPage = () => {
+const CreateToDoPostPage = ({ onPostCreated }: CreateToDoPostPageProps) => {
  const navigate = useNavigate()
 
   const onSubmit = async(data: ToDoPostFormData) => {
     createToDoPost(data)
-      .then(()=>navigate('/'))
-      .catch(e=>console.log(e))
+    .then(() => {
+      onPostCreated() 
+      navigate('/')
+    })
+    .catch(e => console.log(e))
   }
 
   return (
     <>
-      <h1>Add Your To Do List</h1>
+
       <ToDoPostForm  onSubmit={onSubmit} formType='create'/>
     </>
   )

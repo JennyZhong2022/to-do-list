@@ -42,9 +42,9 @@ public class ModelMapperConfig {
       if (context.getSource() == null) {
         return null;
       }
-      return context.getSource().trim().toLowerCase();
+      String source = context.getSource().trim().toLowerCase();
+      return source.substring(0, 1).toUpperCase() + source.substring(1);
     }
-
   }
 
 }

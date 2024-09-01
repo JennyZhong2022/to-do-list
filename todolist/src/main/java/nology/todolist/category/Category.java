@@ -1,6 +1,7 @@
 package nology.todolist.category;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -23,7 +24,7 @@ public class Category extends BaseEntity {
   @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
   // cascade = CascadeType.ALL,, orphanRemoval = true: Removes child entities
   @JsonIgnoreProperties("category")
-  private List<ToDoPost> posts;
+  private List<ToDoPost> posts = new ArrayList<>();
 
   public Category() {
 

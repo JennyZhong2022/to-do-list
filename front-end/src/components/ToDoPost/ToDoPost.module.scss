@@ -1,0 +1,65 @@
+.container {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  margin: 0 auto;
+  padding: 10px 0;
+  
+  .checkbox {
+    margin-right: 15px;
+    width: 22px;
+    height: 22px;
+  }
+
+  .taskContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    
+    .content {
+      flex: 2;
+      font-size: 18px;
+      color: #333;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .category {
+      flex: 1;
+      text-align: center;
+      font-size: 20px;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+  }
+
+  .buttonsContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex: 1;
+
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin-right: 15px;
+      
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &.duplicateBtn {
+        color: #2980b9;
+      }
+
+      &.editBtn {
+        color: #f39c12;
+      }
+
+      &.deleteBtn {
+        color: #27ae60;
+      }
+    }
+  }
+}

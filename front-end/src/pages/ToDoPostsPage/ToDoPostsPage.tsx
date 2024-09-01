@@ -1,20 +1,26 @@
 import { useEffect, useState } from "react"
 import { deleteToDoPostById, getAllToDoPosts, ToDoPostResponse } from "../../services/todo-post"
 import ToDoPost from "../../components/ToDoPost/ToDoPost"
+import styles from './ToDoPostsPage.module.scss'
+import CreateToDoPostPage from "../CreateToDoPostPage/CreateToDoPostPage"
+import CreateCategoryPage from "../CreateCategoryPage/CreateCategoryPage"
 
 const ToDoPostsPage = () => {
-  const [posts,setPosts]=useState<ToDoPostResponse[]>([])
-
+  const [posts, setPosts] = useState<ToDoPostResponse[]>([])
+  const [addTodoOpen, setAddTodoOpen] = useState(false)
+  const [addCategoryOpen, setAddCategoryOpen] = useState(false)
 
   useEffect(() => {
-    getAllToDoPosts()
-      .then(data => { setPosts(data), console.log(data) })
-      .catch(e=>console.log(e)
-    )
-    
+    fetchPosts()
   }, [])
-  
-  const onDelete = async(id:number) => {
+
+  const fetchPosts = () => {
+    getAllToDoPosts()
+      .then(data => setPosts(data))
+      .catch(e => console.log(e))
+  }
+
+  const onDelete = async (id: number) => {
     const confirmed = window.confirm("Are you sure?")
     if (!confirmed) {
       return
@@ -24,21 +30,46 @@ const ToDoPostsPage = () => {
       return false
     })
     if (isConfirmed) {
-      const updatedPosts = posts.filter((post) => post.id !== id)
-      setPosts(updatedPosts)
+      setPosts(posts.filter(post => post.id !== id))
     }
-
-    
   }
 
   return (
     <>
-    {posts.map((post) => (
-      <ToDoPost key={post.id} post={post} onDelete={onDelete} />
-    )
+      <h1>My TO-DO List</h1>
+      <button onClick={()=>setAddCategoryOpen(!addCategoryOpen)}>Add Category</button>
+      {addCategoryOpen && <CreateCategoryPage />}
+      <button onClick={()=>setAddTodoOpen(!addTodoOpen)}>Add Post</button>
+      {addTodoOpen && <CreateToDoPostPage onPostCreated={fetchPosts} />}
 
-    )}
-  </>
+
+      <div className={styles.TodoPostContainer}>
+      
+        
+        <div className={styles.headerContainer}>
+        <div className={styles.checkboxContainer}>
+        <input type="checkbox" id="selectAll" className={styles.checkbox} />
+        {/* <label htmlFor="selectAll" className={styles.selectAllLabel}>Select All</label> */}
+      </div>
+          
+        <div className={styles.headerTitlesContainer}>
+          <h4 className={styles.taskName}>Task Name</h4>
+          <h4 className={styles.category}>Category</h4>
+          <div className={styles.headersBtnContainer}>
+          <h4 className={styles.btnIconName}>Duplicate</h4>
+          <h4 className={styles.btnIconName}>Edit</h4>
+          <h4 className={styles.btnIconName}>Remove</h4>
+          </div>
+        </div>
+        </div>
+
+        
+
+        {posts.map(post => (
+          <ToDoPost key={post.id} post={post} onDelete={onDelete} />
+        ))}
+      </div>
+    </>
   )
 }
 

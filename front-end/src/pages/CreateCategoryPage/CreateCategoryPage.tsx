@@ -14,7 +14,6 @@ const CreateCategoryPage = () => {
 
   return (
     <>
-      <h1>Add Your To Do List</h1>
       <CategoryForm  onSubmit={onSubmit} />
     </>
   )
