@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { schema, ToDoPostFormData } from './schema';
-import classes from './ToDoPostForm.module.scss';
+import styles from '../CategoryForm/CategoryForm.module.scss';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { CategoryResponse, getAllCategories } from '../../services/todo-post';
@@ -39,9 +39,9 @@ const ToDoPostForm = ({ onSubmit,todo, formType }: ToDoPostFormProps) => {
   if (isSubmitSuccessful) reset();
 
   return (
-    <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-    <div className={classes.field}>
-      <label htmlFor="category">Category</label>
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+    <div className={styles.field}>
+      <label htmlFor="category">Category:</label>
         <select id="category" {...register('categoryId', { required: true, valueAsNumber: true })}>    
           {/* valueAsNumber: true to convert string to number */}
         <option value="">Select a category</option>
@@ -52,22 +52,25 @@ const ToDoPostForm = ({ onSubmit,todo, formType }: ToDoPostFormProps) => {
         ))}
       </select>
       {errors?.categoryId && (
-        <small className={classes.error_text}>
+        <small className={styles.error_text}>
           {errors.categoryId.message}
         </small>
       )}
     </div>
 
-      <div className={classes.field}>
-        <label htmlFor="content">Content</label>
-        <textarea {...register('content')} id="content"></textarea>
+      <div className={styles.field}>
+        <label htmlFor="content">Content:</label>
+        <input {...register('content')} id="content" style={{width:'300px'}}></input>
         {errors?.content && (
-          <small className={classes.error_text}>{errors.content.message}</small>
+          <small className={styles.error_text}>{errors.content.message}</small>
         )}
       </div>
-      <button>
-        {formType === 'create' ? 'Create Blog Post' : 'Update Blog Post'}
+
+      <div className={styles.field}>
+      <button className={styles.submitBtn}>
+        {formType === 'create' ? 'Create ToDo' : 'Update ToDo'}
       </button>
+      </div> 
     </form>
   );
 }

@@ -6,20 +6,21 @@ $input-padding: 12px;
 $input-border-radius: 5px;
 $input-border: 1px solid #d1cfcf;
 $input-background: #ededed;
-$button-background: #1fbd47;
+$button-background: #19bab2;
 $button-color: #fff;
 $error-color: #ff0000;
 
   .form {
-    max-width: 80vw;
     display: flex;
-    justify-content:center;
+    justify-content:flex-start;
+    gap: 50px;
     align-items: center;
     padding: $form-padding;
     font-size: large;
+    margin-top: 20px;
 
     .field {
-      // flex:4;
+      // flex:3;
       margin-bottom: 20px;
       display: flex;
       align-items: center;
@@ -31,8 +32,8 @@ $error-color: #ff0000;
         margin-right: 20px;
       }
 
-      input {
-    
+      input,
+      select {
         padding: $input-padding;
         border: $input-border;
         border-radius: $input-border-radius;
@@ -44,21 +45,23 @@ $error-color: #ff0000;
         margin-top: 5px;
         color: $error-color;
       }
-    }
-
-    .submitBtn {
-      // flex:1;
-      padding: $input-padding;
-      background-color: $button-background;
-      color: $button-color;
-      border: none;
-      border-radius: $input-border-radius;
-      cursor: pointer;
-
-      &:hover {
-        background-color: darken($button-background, 10%);
+      .submitBtn {
+        font-size: 1rem;
+        width: 10vw;
+        padding: $input-padding;
+        background-color: $button-background;
+        color: $button-color;
+        border: none;
+        border-radius: $input-border-radius;
+        cursor: pointer;
+  
+        &:hover {
+          background-color: darken($button-background, 5%);
+        }
       }
     }
+
+   
   }
 
 

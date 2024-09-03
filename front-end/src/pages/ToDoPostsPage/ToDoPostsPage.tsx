@@ -4,11 +4,13 @@ import ToDoPost from "../../components/ToDoPost/ToDoPost"
 import styles from './ToDoPostsPage.module.scss'
 import CreateToDoPostPage from "../CreateToDoPostPage/CreateToDoPostPage"
 import CreateCategoryPage from "../CreateCategoryPage/CreateCategoryPage"
+import { useNavigate } from "react-router-dom"
 
 const ToDoPostsPage = () => {
   const [posts, setPosts] = useState<ToDoPostResponse[]>([])
   const [addTodoOpen, setAddTodoOpen] = useState(false)
   const [addCategoryOpen, setAddCategoryOpen] = useState(false)
+  const navigate= useNavigate()
 
   useEffect(() => {
     fetchPosts()
@@ -18,6 +20,10 @@ const ToDoPostsPage = () => {
     getAllToDoPosts()
       .then(data => setPosts(data))
       .catch(e => console.log(e))
+  }
+
+  const handleCategoriesList = () => {
+    navigate('/categories')
   }
 
   const onDelete = async (id: number) => {
@@ -38,6 +44,7 @@ const ToDoPostsPage = () => {
     <div className={styles.todoPageContainer}>
       <h1 className={styles.h1}>My TO-DO List</h1>
       <div className={styles.addBtnContainer}>
+      <button  className={styles.addBtn} onClick={handleCategoriesList} >Categories List</button>   
         <button onClick={() => setAddCategoryOpen(!addCategoryOpen)} className={styles.addBtn}>Add Category</button>   
         <button onClick={() => setAddTodoOpen(!addTodoOpen)} className={styles.addBtn}>Add Post</button>
       </div>
