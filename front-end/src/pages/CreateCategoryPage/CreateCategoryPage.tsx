@@ -3,12 +3,19 @@ import { createCategory } from "../../services/todo-post"
 import { CategoryFormData } from "../../components/CategoryForm/schema"
 import CategoryForm from "../../components/CategoryForm/CategoryForm"
 
-const CreateCategoryPage = () => {
+interface CreateCategoryPageProps{
+  onCategoryCreated:()=> void
+}
+
+const CreateCategoryPage = ({onCategoryCreated}:CreateCategoryPageProps) => {
   const navigate = useNavigate()
 
   const onSubmit = async(data: CategoryFormData) => {
     createCategory(data)
-      .then(()=>navigate('/'))
+      .then(() => {
+        onCategoryCreated()
+        navigate('/')
+      })
       .catch(e=>console.log(e))
   }
 

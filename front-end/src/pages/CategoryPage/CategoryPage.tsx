@@ -1,24 +1,22 @@
-import { useEffect, useState } from "react"
-import { CategoryResponse, deleteCategoryById, getAllCategories } from "../../services/todo-post"
+
+import { CategoryResponse, deleteCategoryById } from "../../services/todo-post"
 import CategoryList from "../../components/CategoryList/CategoryList"
 import styles from './CategoryPage.module.scss'
 
 
 
+interface CategoryPageProps{
+  onPostCreated:()=>void
+  categories:CategoryResponse[]
+  setCategories: React.Dispatch<React.SetStateAction<CategoryResponse[]>>;
+}
 
 
 
-const CategoryPage = () => {
-  const [categories,setCategories]=useState<CategoryResponse[]>([])
+const CategoryPage = ({ onPostCreated,categories, setCategories }: CategoryPageProps) => {
+
  
 
-  useEffect(() => {
-    getAllCategories()
-      .then(data => { setCategories(data), console.log(data) })
-      .catch(e=>console.log(e)
-    )
-    
-  }, [])
   
   const onDelete = async(id:number) => {
     const confirmed = window.confirm("Are you sure?")
@@ -32,6 +30,8 @@ const CategoryPage = () => {
     if (isConfirmed) {
       const updatedPosts = categories.filter((post) => post.id !== id)
       setCategories(updatedPosts)
+      onPostCreated()
+      
     }
 
     

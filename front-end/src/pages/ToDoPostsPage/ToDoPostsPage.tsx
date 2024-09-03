@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { deleteToDoPostById, getAllToDoPosts, ToDoPostResponse } from "../../services/todo-post"
+import { CategoryResponse, deleteToDoPostById, getAllCategories, getAllToDoPosts, ToDoPostResponse } from "../../services/todo-post"
 import ToDoPost from "../../components/ToDoPost/ToDoPost"
 import styles from './ToDoPostsPage.module.scss'
 import CreateToDoPostPage from "../CreateToDoPostPage/CreateToDoPostPage"
@@ -12,7 +12,8 @@ const ToDoPostsPage = () => {
   const [addTodoOpen, setAddTodoOpen] = useState(false)
   const [addCategoryOpen, setAddCategoryOpen] = useState(false)
   const [addCategoryListOpen, setAddCategoryListOpen] = useState(false)
-
+  const [categories, setCategories] = useState<CategoryResponse[]>([])
+  
   useEffect(() => {
     fetchPosts()
   }, [])
@@ -21,6 +22,17 @@ const ToDoPostsPage = () => {
     getAllToDoPosts()
       .then(data => setPosts(data))
       .catch(e => console.log(e))
+  }
+
+  useEffect(() => {
+    fetchCategories()
+  }, [])
+  
+  const fetchCategories = () => {
+    getAllCategories()
+    .then(data => { setCategories(data), console.log(data) })
+    .catch(e=>console.log(e)
+  )
   }
 
 
@@ -50,8 +62,8 @@ const ToDoPostsPage = () => {
       </div>
 
       <div className={styles.addForm}>
-        {addCategoryListOpen && <CategoryPage/>}
-        {addCategoryOpen && <CreateCategoryPage /> }
+        {addCategoryListOpen && <CategoryPage categories={categories} setCategories={setCategories} onPostCreated={fetchPosts}/>}
+        {addCategoryOpen && <CreateCategoryPage onCategoryCreated={fetchCategories} /> }
         {addTodoOpen && <CreateToDoPostPage onPostCreated={fetchPosts}/>}
       </div>
    
