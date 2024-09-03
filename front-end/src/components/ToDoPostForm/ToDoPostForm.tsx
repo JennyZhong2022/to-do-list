@@ -39,7 +39,8 @@ const ToDoPostForm = ({ onSubmit,todo, formType ,onCategoryCreated,categories}: 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
     <div className={styles.field}>
-      <label htmlFor="category">Category:</label>
+        <label htmlFor="category">Category:</label>
+        <div>
         <select id="category" {...register('categoryId', { required: true, valueAsNumber: true })}>    
           {/* valueAsNumber: true to convert string to number */}
         <option value="">Select a category</option>
@@ -53,15 +54,18 @@ const ToDoPostForm = ({ onSubmit,todo, formType ,onCategoryCreated,categories}: 
         <small className={styles.error_text}>
           {errors.categoryId.message}
         </small>
-      )}
+          )}
+          </div>
     </div>
 
       <div className={styles.field}>
         <label htmlFor="content">Content:</label>
+        <div>
         <input {...register('content')} id="content" style={{width:'300px'}}></input>
         {errors?.content && (
           <small className={styles.error_text}>{errors.content.message}</small>
-        )}
+          )}
+          </div>
       </div>
 
       <div className={styles.field}>

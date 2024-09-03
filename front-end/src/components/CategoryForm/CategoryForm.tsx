@@ -26,8 +26,6 @@ const CategoryForm = ({ onSubmit }: CategoryFormProps) => {
       <div className={styles.field}>
         <label htmlFor="category">Category:</label>
         <div>
-
-       
         <input
           id="category"
           {...register('name', { required: true })} 
