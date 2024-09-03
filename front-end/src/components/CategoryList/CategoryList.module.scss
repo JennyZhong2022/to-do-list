@@ -1,0 +1,16 @@
+.categoryContainer{
+  background-color: rgb(246, 234, 220);
+  border-radius: 5px;
+  padding: 5px 25px;
+  position: relative;
+
+  button{
+    border: none;
+    background-color: rgb(246, 234, 220);
+    position: absolute;
+    top: 5px; 
+    right: 0; 
+    padding: 0;
+    cursor: pointer;
+  }
+}

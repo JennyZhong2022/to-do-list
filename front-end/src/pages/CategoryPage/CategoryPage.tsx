@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { CategoryResponse, deleteCategoryById, getAllCategories } from "../../services/todo-post"
 import CategoryList from "../../components/CategoryList/CategoryList"
+import styles from './CategoryPage.module.scss'
 
 
 
@@ -9,7 +10,7 @@ import CategoryList from "../../components/CategoryList/CategoryList"
 
 const CategoryPage = () => {
   const [categories,setCategories]=useState<CategoryResponse[]>([])
-
+ 
 
   useEffect(() => {
     getAllCategories()
@@ -37,7 +38,7 @@ const CategoryPage = () => {
   }
 
   return (
-    <>
+    <div className={styles.categoryContainer}>
     {categories.map((category) => (
       <CategoryList key={category.id} category={category}
         onDelete={onDelete}
@@ -45,7 +46,7 @@ const CategoryPage = () => {
     )
 
     )}
-  </>
+  </div>
   )
 
 }

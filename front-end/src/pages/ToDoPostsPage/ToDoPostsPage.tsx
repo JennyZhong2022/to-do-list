@@ -4,13 +4,14 @@ import ToDoPost from "../../components/ToDoPost/ToDoPost"
 import styles from './ToDoPostsPage.module.scss'
 import CreateToDoPostPage from "../CreateToDoPostPage/CreateToDoPostPage"
 import CreateCategoryPage from "../CreateCategoryPage/CreateCategoryPage"
-import { useNavigate } from "react-router-dom"
+import CategoryPage from "../CategoryPage/CategoryPage"
+
 
 const ToDoPostsPage = () => {
   const [posts, setPosts] = useState<ToDoPostResponse[]>([])
   const [addTodoOpen, setAddTodoOpen] = useState(false)
   const [addCategoryOpen, setAddCategoryOpen] = useState(false)
-  const navigate= useNavigate()
+  const [addCategoryListOpen, setAddCategoryListOpen] = useState(false)
 
   useEffect(() => {
     fetchPosts()
@@ -22,9 +23,6 @@ const ToDoPostsPage = () => {
       .catch(e => console.log(e))
   }
 
-  const handleCategoriesList = () => {
-    navigate('/categories')
-  }
 
   const onDelete = async (id: number) => {
     const confirmed = window.confirm("Are you sure?")
@@ -44,20 +42,17 @@ const ToDoPostsPage = () => {
     <div className={styles.todoPageContainer}>
       <h1 className={styles.h1}>My TO-DO List</h1>
       <div className={styles.addBtnContainer}>
-      <button  className={styles.addBtn} onClick={handleCategoriesList} >Categories List</button>   
+
+      <button onClick={() => setAddCategoryListOpen(!addCategoryListOpen)} className={styles.addBtn}>Categories List</button>  
+
         <button onClick={() => setAddCategoryOpen(!addCategoryOpen)} className={styles.addBtn}>Add Category</button>   
         <button onClick={() => setAddTodoOpen(!addTodoOpen)} className={styles.addBtn}>Add Post</button>
       </div>
 
       <div className={styles.addForm}>
-        {addCategoryOpen &&     
-            <CreateCategoryPage />
-          }
-     
-        {addTodoOpen &&
-            <CreateToDoPostPage onPostCreated={fetchPosts}
-            />
-        }
+        {addCategoryListOpen && <CategoryPage/>}
+        {addCategoryOpen && <CreateCategoryPage /> }
+        {addTodoOpen && <CreateToDoPostPage onPostCreated={fetchPosts}/>}
       </div>
    
 

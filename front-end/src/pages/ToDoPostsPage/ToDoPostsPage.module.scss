@@ -47,7 +47,9 @@
   }
 
   .addForm{
-    text-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
   }
 
   .headerContainer {

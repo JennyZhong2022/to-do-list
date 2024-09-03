@@ -8,7 +8,7 @@ const CreateCategoryPage = () => {
 
   const onSubmit = async(data: CategoryFormData) => {
     createCategory(data)
-      .then(()=>navigate('/categories'))
+      .then(()=>navigate('/'))
       .catch(e=>console.log(e))
   }
 
