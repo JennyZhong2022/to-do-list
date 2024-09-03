@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { getToDoPostById, ToDoPostResponse, updateToDoPostById } from "../../services/todo-post"
+import { getToDoPostById, ToDoPostResponse, updateToDoPostById, getAllCategories, CategoryResponse } from "../../services/todo-post"
 import { ToDoPostFormData } from "../../components/ToDoPostForm/schema"
 import ToDoPostForm from "../../components/ToDoPostForm/ToDoPostForm"
 
@@ -10,8 +10,9 @@ type FetchStatus = 'IDLE' | 'LOADING' | 'SUCCESS' | 'FAILURE';
 const EditToDoPostPage = () => {
   const { id } = useParams<{ id: string }>()
   const [todo, setTodo] = useState<ToDoPostResponse | null>(null)
+  const [categories, setCategories] = useState<CategoryResponse[]>([]);
   const [fetchStatus, setFetchStatus] = useState<FetchStatus>('IDLE')
-  const [ error, setError]=useState<Error | null>(null)
+  const [error, setError] = useState<Error | null>(null)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -27,9 +28,17 @@ const EditToDoPostPage = () => {
           setFetchStatus('FAILURE');
         })
     }
+
+    fetchCategories();
   }, [id])
-  
-  const handleUpdateToDoPost =async(data: ToDoPostFormData) => {
+
+  const fetchCategories = () => {
+    getAllCategories()
+      .then(data => setCategories(data))
+      .catch(e => console.log(e));
+  }
+
+  const handleUpdateToDoPost = async(data: ToDoPostFormData) => {
     updateToDoPostById(Number(id), data)
       .then(()=>{
         navigate("/")
@@ -39,24 +48,22 @@ const EditToDoPostPage = () => {
       })
   }
 
-
-
   return (
     <>
-      <h1>Edit Todo Task</h1>
+  
       {fetchStatus === "FAILURE" && <p>Loading</p>}
       {fetchStatus === "FAILURE" && <p>{error?.message}</p>}
-    {fetchStatus==="SUCCESS" && todo && (
-      <ToDoPostForm
-          todo={{ ...todo,categoryId:todo.category.id }}
-        onSubmit={handleUpdateToDoPost}
-        formType="edit"
-      />
-    )}
-  </>
- 
+      {fetchStatus === "SUCCESS" && todo && (
+        <ToDoPostForm
+          todo={{ ...todo, categoryId: todo.category.id }}
+          onSubmit={handleUpdateToDoPost}
+          formType="edit"
+          categories={categories} 
+          onCategoryCreated={fetchCategories} 
+        />
+      )}
+    </>
   )
 }
 
 export default EditToDoPostPage
-
