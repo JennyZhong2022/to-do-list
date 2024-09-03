@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
 import { schema, ToDoPostFormData } from './schema';
 import styles from '../CategoryForm/CategoryForm.module.scss';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { CategoryResponse, getAllCategories } from '../../services/todo-post';
+import { CategoryResponse } from '../../services/todo-post';
+import { useEffect } from 'react';
 
 
 
@@ -11,10 +11,14 @@ interface ToDoPostFormProps{
   formType: 'create' | 'edit';
   todo?:ToDoPostFormData
   onSubmit: (data: ToDoPostFormData) => unknown;
+  onCategoryCreated: () => void
+  categories: CategoryResponse[]
+ 
 }
 
 
-const ToDoPostForm = ({ onSubmit,todo, formType }: ToDoPostFormProps) => {
+
+const ToDoPostForm = ({ onSubmit,todo, formType ,onCategoryCreated,categories}: ToDoPostFormProps) => {
   const {
     reset,
     register,
@@ -22,19 +26,13 @@ const ToDoPostForm = ({ onSubmit,todo, formType }: ToDoPostFormProps) => {
     handleSubmit,
   } = useForm<ToDoPostFormData>({
     resolver: zodResolver(schema),
-    defaultValues: todo, // Prefill form with blog data 
+    defaultValues: todo, // Prefill form with previous data 
    
   });
 
-  const [categories, setCategories] = useState<CategoryResponse[]>([]);
-
   useEffect(() => {
-       getAllCategories()
-      .then(data=>setCategories(data))
-      .catch(e=>console.error('Failed to fetch categories',e))
-    
+    onCategoryCreated()
   },[])
-
 
   if (isSubmitSuccessful) reset();
 

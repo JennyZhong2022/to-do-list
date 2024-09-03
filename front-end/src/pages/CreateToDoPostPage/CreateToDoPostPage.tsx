@@ -1,13 +1,16 @@
 import { useNavigate } from "react-router-dom"
-import { createToDoPost } from "../../services/todo-post"
+import { CategoryResponse, createToDoPost } from "../../services/todo-post"
 import ToDoPostForm from "../../components/ToDoPostForm/ToDoPostForm"
 import { ToDoPostFormData } from "../../components/ToDoPostForm/schema"
 
 interface CreateToDoPostPageProps {
   onPostCreated: () => void
+  onCategoryCreated: () => void
+  categories: CategoryResponse[]
+  
 }
 
-const CreateToDoPostPage = ({ onPostCreated }: CreateToDoPostPageProps) => {
+const CreateToDoPostPage = ({ onPostCreated,onCategoryCreated,categories,}: CreateToDoPostPageProps) => {
  const navigate = useNavigate()
 
   const onSubmit = async(data: ToDoPostFormData) => {
@@ -22,7 +25,8 @@ const CreateToDoPostPage = ({ onPostCreated }: CreateToDoPostPageProps) => {
   return (
     <>
 
-      <ToDoPostForm  onSubmit={onSubmit} formType='create'/>
+      <ToDoPostForm  onSubmit={onSubmit}  categories={categories} 
+          onCategoryCreated={onCategoryCreated} formType='create'/>
     </>
   )
 }

@@ -64,7 +64,10 @@ const ToDoPostsPage = () => {
       <div className={styles.addForm}>
         {addCategoryListOpen && <CategoryPage categories={categories} setCategories={setCategories} onPostCreated={fetchPosts}/>}
         {addCategoryOpen && <CreateCategoryPage onCategoryCreated={fetchCategories} /> }
-        {addTodoOpen && <CreateToDoPostPage onPostCreated={fetchPosts}/>}
+        {addTodoOpen && <CreateToDoPostPage onPostCreated={fetchPosts}
+          categories={categories} 
+          onCategoryCreated={fetchCategories}
+        />}
       </div>
    
 
