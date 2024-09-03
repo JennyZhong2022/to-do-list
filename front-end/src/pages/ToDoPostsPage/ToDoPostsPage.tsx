@@ -35,15 +35,26 @@ const ToDoPostsPage = () => {
   }
 
   return (
-    <>
-      <h1>My TO-DO List</h1>
-      <button onClick={()=>setAddCategoryOpen(!addCategoryOpen)}>Add Category</button>
-      {addCategoryOpen && <CreateCategoryPage />}
-      <button onClick={()=>setAddTodoOpen(!addTodoOpen)}>Add Post</button>
-      {addTodoOpen && <CreateToDoPostPage onPostCreated={fetchPosts} />}
+    <div className={styles.todoPageContainer}>
+      <h1 className={styles.h1}>My TO-DO List</h1>
+      <div className={styles.addBtnContainer}>
+        <button onClick={() => setAddCategoryOpen(!addCategoryOpen)} className={styles.addBtn}>Add Category</button>   
+        <button onClick={() => setAddTodoOpen(!addTodoOpen)} className={styles.addBtn}>Add Post</button>
+      </div>
 
+      <div className={styles.addForm}>
+        {addCategoryOpen &&     
+            <CreateCategoryPage />
+          }
+     
+        {addTodoOpen &&
+            <CreateToDoPostPage onPostCreated={fetchPosts}
+            />
+        }
+      </div>
+   
 
-      <div className={styles.TodoPostContainer}>
+      {/* <div className={styles.TodoPostContainer}> */}
       
         
         <div className={styles.headerContainer}>
@@ -69,7 +80,7 @@ const ToDoPostsPage = () => {
           <ToDoPost key={post.id} post={post} onDelete={onDelete} />
         ))}
       </div>
-    </>
+    // </div>
   )
 }
 

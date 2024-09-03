@@ -57,7 +57,9 @@ public class ToDoPostService {
     if (result.isEmpty()) {
       return result;
     }
-    ToDoPost foundToDoPost = mapper.map(data, ToDoPost.class);
+
+    ToDoPost foundToDoPost = result.get();
+    mapper.map(data, foundToDoPost);
 
     ValidationErrors errors = new ValidationErrors();
     if (data.getCategoryId() != null) {

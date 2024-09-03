@@ -1,5 +1,5 @@
 import { schema, CategoryFormData } from './schema';
-import classes from './CategoryForm.module.scss';
+import styles from './CategoryForm.module.scss';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
@@ -21,21 +21,29 @@ const CategoryForm = ({ onSubmit }: CategoryFormProps) => {
   if (isSubmitSuccessful) reset();
 
   return (
-    <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-      <div className={classes.field}>
-        <label htmlFor="category">Category</label>
+   
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <div className={styles.field}>
+        <label htmlFor="category">Category:</label>
+        <div>
+
+       
         <input
           id="category"
           {...register('name', { required: true })} 
         />
         {errors?.name && (
-          <small className={classes.error_text}>
+          <small className={styles.error_text}>
             {errors.name.message}
           </small>
-        )}
+          )}
+           </div>
       </div>
-      <button type="submit">Submit</button>
-    </form>
+      <div className={styles.field}>
+        <button type="submit" className={styles.submitBtn}>Add</button>
+        </div>
+      </form>
+    
   );
 }
 
