@@ -5,12 +5,16 @@ import {
   getAllCategories,
   getAllToDoPosts,
   ToDoPostResponse,
+  updateToDoPostById,
 } from "../../services/todo-post";
 import ToDoPost from "../../components/ToDoPost/ToDoPost";
 import styles from "./ToDoPostsPage.module.scss";
 import CreateToDoPostPage from "../CreateToDoPostPage/CreateToDoPostPage";
 import CreateCategoryPage from "../CreateCategoryPage/CreateCategoryPage";
 import CategoryPage from "../CategoryPage/CategoryPage";
+import HeaderTitles from "../../components/HearderTitles/HeaderTitles";
+import { ToDoPostFormData } from "../../components/ToDoPostForm/schema";
+import ToDoPostForm from "../../components/ToDoPostForm/ToDoPostForm";
 
 const ToDoPostsPage = () => {
   const [posts, setPosts] = useState<ToDoPostResponse[]>([]);
@@ -18,7 +22,9 @@ const ToDoPostsPage = () => {
   const [addCategoryOpen, setAddCategoryOpen] = useState(false);
   const [addCategoryListOpen, setAddCategoryListOpen] = useState(false);
   const [categories, setCategories] = useState<CategoryResponse[]>([]);
+  const [editPostId, setEditPostId] = useState<number | null>(null);
 
+  // fetch todo posts
   useEffect(() => {
     fetchPosts();
   }, []);
@@ -29,6 +35,7 @@ const ToDoPostsPage = () => {
       .catch((e) => console.log(e));
   };
 
+  // fetch categories
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -41,6 +48,24 @@ const ToDoPostsPage = () => {
       .catch((e) => console.log(e));
   };
 
+  // handle edit to do post
+
+  const handleEditPost = (id: number) => {
+    setEditPostId(id);
+  };
+
+  const handleUpdateToDoPost = async (id: number, data: ToDoPostFormData) => {
+    updateToDoPostById(id, data)
+      .then(() => {
+        fetchPosts();
+        setEditPostId(null);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch todo post:", error);
+      });
+  };
+
+  // handle delete to do post
   const onDelete = async (id: number) => {
     const confirmed = window.confirm("Are you sure?");
     if (!confirmed) {
@@ -100,25 +125,27 @@ const ToDoPostsPage = () => {
         )}
       </div>
 
-      <div className={styles.headerContainer}>
-        <div className={styles.checkboxContainer}>
-          <input type="checkbox" id="selectAll" className={styles.checkbox} />
-          {/* <label htmlFor="selectAll" className={styles.selectAllLabel}>Select All</label> */}
-        </div>
-
-        <div className={styles.headerTitlesContainer}>
-          <h4 className={styles.taskName}>Task Name</h4>
-          <h4 className={styles.category}>Category</h4>
-          <div className={styles.headersBtnContainer}>
-            <h4 className={styles.btnIconName}>Duplicate</h4>
-            <h4 className={styles.btnIconName}>Edit</h4>
-            <h4 className={styles.btnIconName}>Remove</h4>
-          </div>
-        </div>
-      </div>
+      <HeaderTitles />
 
       {posts.map((post) => (
-        <ToDoPost key={post.id} post={post} onDelete={onDelete} />
+        <div>
+          {editPostId === post.id ? (
+            <ToDoPostForm
+              todo={{ ...post, categoryId: post.category.id }}
+              onSubmit={(data) => handleUpdateToDoPost(post.id, data)}
+              formType="edit"
+              categories={categories}
+              onCategoryCreated={fetchCategories}
+            />
+          ) : (
+            <ToDoPost
+              key={post.id}
+              post={post}
+              onDelete={onDelete}
+              onEdit={() => handleEditPost(post.id)}
+            />
+          )}
+        </div>
       ))}
     </div>
   );

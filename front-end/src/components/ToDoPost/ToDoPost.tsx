@@ -1,5 +1,4 @@
 import { ToDoPostResponse } from "../../services/todo-post";
-import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
@@ -10,15 +9,10 @@ import { faClone, faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
 interface ToDoPostProps {
   post: ToDoPostResponse;
   onDelete: (id: number) => Promise<unknown>;
+  onEdit: () => void;
 }
 
-const ToDoPost = ({ post, onDelete }: ToDoPostProps) => {
-  const navigate = useNavigate();
-
-  const handleEditBtn = () => {
-    navigate(`/posts/${post.id}/edit`);
-  };
-
+const ToDoPost = ({ post, onDelete, onEdit }: ToDoPostProps) => {
   return (
     <div className={styles.container}>
       <input type="checkbox" className={styles.checkbox} />
@@ -31,7 +25,7 @@ const ToDoPost = ({ post, onDelete }: ToDoPostProps) => {
             <FontAwesomeIcon icon={faClone} className="fa-2x" />
           </button>
 
-          <button onClick={handleEditBtn} className={styles.editBtn}>
+          <button onClick={onEdit} className={styles.editBtn}>
             <FontAwesomeIcon icon={faPen} className="fa-2x" />
           </button>
           <button

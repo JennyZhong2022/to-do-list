@@ -1,0 +1,60 @@
+.headerContainer {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #ddd;
+  margin: 0 auto;
+  padding: 10px 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+  .checkboxContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 15px;
+
+    .checkbox {
+      margin-right: 10px;
+      width: 22px;
+      height: 22px;
+    }
+
+    // .selectAllLabel {
+    //   font-size: 10px;
+    //   font-weight: bold;
+    //   color: #333;
+    //   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    // }
+  }
+
+  .headerTitlesContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+
+    .taskName {
+      flex: 2;
+      color: #333;
+      text-align: left;
+      text-align: center;
+    }
+
+    .category {
+      flex: 1;
+      text-align: center;
+    }
+
+    .headersBtnContainer {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex: 1;
+
+      .btnIconName {
+        color: #333;
+        text-align: center;
+        margin: 0 10px;
+      }
+    }
+  }
+}
