@@ -32,57 +32,131 @@
       font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
         "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
     }
-  }
 
-  .buttonsContainer {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex: 1;
+    .actionsWrapper {
+      position: relative;
 
-    button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      margin-right: 15px;
+      .actionIcons {
+        display: flex;
+        align-items: center;
 
-      &:last-child {
-        margin-right: 0;
+        button {
+          background: none;
+          border: none;
+          cursor: pointer;
+          margin-right: 10px;
+
+          &:last-child {
+            margin-right: 0;
+          }
+
+          &.duplicateBtn {
+            color: #2980b9;
+          }
+
+          &.editBtn {
+            color: #f39c12;
+          }
+
+          &.deleteBtn {
+            color: #27ae60;
+          }
+        }
       }
 
-      &.duplicateBtn {
-        color: #2980b9;
+      .dropdownBtn {
+        display: none;
+        background-color: #ac7ce6;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 0.9rem;
       }
 
-      &.editBtn {
-        color: #f39c12;
-      }
+      .dropdownMenu {
+        display: none;
+        position: absolute;
+        top: 100%; // Below the button
+        right: 0;
+        background-color: #fff;
+        border: 1px solid #e8e7e7;
+        border-radius: 5px;
+        box-shadow: 0 0.6px 0.6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        min-width: 100px;
+        margin-top: 0.5rem;
 
-      &.deleteBtn {
-        color: #27ae60;
+        button {
+          display: flex;
+          align-items: center;
+          padding: 10px;
+          border: none;
+          background: none;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #f0f0f0;
+          }
+
+          .fa-1x {
+            margin-right: 8px;
+          }
+
+          &.duplicateBtn {
+            color: #2980b9;
+          }
+
+          &.editBtn {
+            color: #f39c12;
+          }
+
+          &.deleteBtn {
+            color: #27ae60;
+          }
+        }
       }
     }
   }
-}
 
-@media screen and (max-width: 480px) {
-  .container {
-    max-width: 100%;
-    .checkbox {
-      display: none;
-    }
+  // action menu hide, drop down menu display
+  @media screen and (max-width: 480px) {
     .taskContainer {
+      display: flex;
+      justify-content: space-between;
+
       .content {
-        flex: 4;
+        text-align: start;
+        flex: 3;
         font-size: 16px;
       }
+
       .category {
         flex: 1;
         font-size: 12px;
       }
-      .buttonsContainer {
+
+      .actionsWrapper {
         flex: 1;
+
+        .actionIcons {
+          display: none;
+        }
+
+        .dropdownBtn {
+          display: inline-block;
+        }
+
+        .dropdownMenu {
+          display: block;
+          flex-direction: column;
+        }
       }
+    }
+
+    .checkbox {
+      display: none;
     }
   }
 }
