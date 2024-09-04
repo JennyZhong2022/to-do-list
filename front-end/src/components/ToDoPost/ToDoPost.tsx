@@ -1,61 +1,52 @@
-import { ToDoPostResponse } from "../../services/todo-post"
-import { useNavigate } from "react-router-dom"
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
+import { ToDoPostResponse } from "../../services/todo-post";
+import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
-import styles from './ToDoPost.module.scss'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClone, faTrash, faPen } from '@fortawesome/free-solid-svg-icons';
+import styles from "./ToDoPost.module.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClone, faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
 
-
-interface ToDoPostProps{
-  post: ToDoPostResponse
-  onDelete: (id:number)=>Promise<unknown>
+interface ToDoPostProps {
+  post: ToDoPostResponse;
+  onDelete: (id: number) => Promise<unknown>;
 }
 
 const ToDoPost = ({ post, onDelete }: ToDoPostProps) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleEditBtn = () => {
-    navigate(`/posts/${post.id}/edit`)
-  }
+    navigate(`/posts/${post.id}/edit`);
+  };
 
   return (
-   
-
-   
     <div className={styles.container}>
-      
       <input type="checkbox" className={styles.checkbox} />
 
       <div className={styles.taskContainer}>
-
-      
-    <p className={styles.content}>{post.content}</p>
-    <h3 className={styles.category} >
-      {post.category.name}
-        </h3>
+        <p className={styles.content}>{post.content}</p>
+        <h3 className={styles.category}>{post.category.name}</h3>
         <div className={styles.buttonsContainer}>
-    <button className={styles.duplicateBtn}>
-    <FontAwesomeIcon icon={faClone} className="fa-2x" />
-      </button>
+          <button className={styles.duplicateBtn}>
+            <FontAwesomeIcon icon={faClone} className="fa-2x" />
+          </button>
 
-      <button onClick={handleEditBtn} className={styles.editBtn}>
-        <FontAwesomeIcon icon={faPen} className="fa-2x"  />    
-      
-    </button>  
-      <button onClick={() => onDelete(post.id)} className={styles.deleteBtn}>
-      <FontAwesomeIcon icon={faTrash}  className="fa-2x" />
-      </button> 
+          <button onClick={handleEditBtn} className={styles.editBtn}>
+            <FontAwesomeIcon icon={faPen} className="fa-2x" />
+          </button>
+          <button
+            onClick={() => onDelete(post.id)}
+            className={styles.deleteBtn}
+          >
+            <FontAwesomeIcon icon={faTrash} className="fa-2x" />
+          </button>
+        </div>
       </div>
-      </div>
 
-
-          {/* <h4 className={styles.createTime}>CreateAt:{dayjs(post.createdAt).fromNow()}</h4> */}
+      {/* <h4 className={styles.createTime}>CreateAt:{dayjs(post.createdAt).fromNow()}</h4> */}
       {/* <h4>UpdateAT:{dayjs(post.updatedAt).fromNow()}</h4> */}
-      </div>
-      
-  )
-}
+    </div>
+  );
+};
 
-export default ToDoPost
+export default ToDoPost;
