@@ -125,7 +125,7 @@ const ToDoPostsPage = () => {
         )}
       </div>
 
-      {/* <HeaderTitles /> */}
+      <HeaderTitles />
 
       {posts.map((post) => (
         <div key={post.id}>

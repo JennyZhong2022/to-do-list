@@ -35,7 +35,7 @@ $error-color: #ff0000;
       margin-right: 1.25rem;
 
       @media screen and (max-width: 480px) {
-        margin-right: 0.5rem; // Smaller margin for labels
+        margin-right: 0.5rem;
       }
     }
 
@@ -47,8 +47,8 @@ $error-color: #ff0000;
       background-color: $input-background;
 
       @media screen and (max-width: 480px) {
-        padding: 0.5rem; // Smaller padding for smaller screens
-        width: 20vw; // Adjust input width for smaller screens
+        padding: 0.5rem;
+        width: 20vw;
       }
     }
 
@@ -56,7 +56,7 @@ $error-color: #ff0000;
       width: 40vw;
 
       @media screen and (max-width: 480px) {
-        width: 30vw; // Adjust content input width for smaller screens
+        width: 30vw;
       }
     }
 
@@ -66,7 +66,6 @@ $error-color: #ff0000;
       color: $error-color;
     }
 
-    // Button adjustments
     .submitBtn {
       font-size: 1rem;
       width: 10vw;
@@ -94,7 +93,6 @@ $error-color: #ff0000;
     }
   }
 
-  // Category form-specific styles
   .categoryForm {
     @media screen and (max-width: 480px) {
       input {
