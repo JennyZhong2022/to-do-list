@@ -1,9 +1,26 @@
 .todoPageContainer {
-  padding: 10px 180px;
+  padding: 10px 200px;
+  @media screen and (max-width: 1024px) {
+    padding: 50px 50px;
+  }
+  @media screen and (max-width: 480px) {
+    padding: 20px 30px;
+  }
+
+  .h1 {
+    @media screen and (max-width: 480px) {
+      text-align: center;
+    }
+  }
 
   .addBtnContainer {
     display: flex;
     justify-content: flex-end;
+    @media screen and (max-width: 480px) {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
 
     .addBtn {
       margin-left: 30px;
@@ -16,11 +33,18 @@
       cursor: pointer;
       font-family: system-ui, -apple-system, system-ui, "Helvetica Neue",
         Helvetica, Arial, sans-serif;
-      font-size: 16px;
+      font-size: 1rem;
       font-weight: 600;
       line-height: 1.25;
       min-height: 3rem;
       padding: calc(0.875rem - 1px) calc(1.5rem - 1px);
+      @media screen and (max-width: 480px) {
+        font-size: 0.65rem;
+        // padding: 5px 10px;
+        padding: calc(0.575rem - 1px) calc(0.75rem - 1px);
+        margin-left: 0px;
+        min-height: 2.6rem;
+      }
     }
 
     .addBtn:hover,
@@ -47,5 +71,9 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+
+    @media screen and (max-width: 480px) {
+      justify-content: center;
+    }
   }
 }

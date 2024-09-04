@@ -125,10 +125,10 @@ const ToDoPostsPage = () => {
         )}
       </div>
 
-      <HeaderTitles />
+      {/* <HeaderTitles /> */}
 
       {posts.map((post) => (
-        <div>
+        <div key={post.id}>
           {editPostId === post.id ? (
             <ToDoPostForm
               todo={{ ...post, categoryId: post.category.id }}
@@ -139,7 +139,6 @@ const ToDoPostsPage = () => {
             />
           ) : (
             <ToDoPost
-              key={post.id}
               post={post}
               onDelete={onDelete}
               onEdit={() => handleEditPost(post.id)}
