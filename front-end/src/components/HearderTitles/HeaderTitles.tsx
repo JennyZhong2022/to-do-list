@@ -1,10 +1,21 @@
 import styles from "./HeaderTitles.module.scss";
 
-const HeaderTitles = () => {
+interface HeaderTitlesProps {
+  handleSelectAll: () => void;
+  boxChecked: boolean;
+}
+
+const HeaderTitles = ({ handleSelectAll, boxChecked }: HeaderTitlesProps) => {
   return (
     <div className={styles.headerContainer}>
       <div className={styles.checkboxContainer}>
-        <input type="checkbox" id="selectAll" className={styles.checkbox} />
+        <input
+          type="checkbox"
+          id="selectAll"
+          className={styles.checkbox}
+          checked={boxChecked}
+          onChange={handleSelectAll}
+        />
         {/* <label htmlFor="selectAll" className={styles.selectAllLabel}>Select All</label> */}
       </div>
 

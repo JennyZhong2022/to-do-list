@@ -24,6 +24,8 @@ const ToDoPostsPage = () => {
   const [addCategoryListOpen, setAddCategoryListOpen] = useState(false);
   const [categories, setCategories] = useState<CategoryResponse[]>([]);
   const [editPostId, setEditPostId] = useState<number | null>(null);
+  const [boxChecked, setBoxChecked] = useState(false);
+  const [checkedPosts, setCheckedPosts] = useState<number[]>([]);
 
   // fetch todo posts
   useEffect(() => {
@@ -67,7 +69,6 @@ const ToDoPostsPage = () => {
   };
 
   // handle edit todo post
-
   const handleEditPost = (id: number) => {
     setEditPostId(id);
   };
@@ -95,6 +96,24 @@ const ToDoPostsPage = () => {
     });
     if (isConfirmed) {
       setPosts(posts.filter((post) => post.id !== id));
+    }
+  };
+
+  //handle checkbox
+  const handleSelectAll = () => {
+    if (boxChecked) {
+      setCheckedPosts([]);
+    } else {
+      setCheckedPosts(posts.map((post) => post.id));
+    }
+    setBoxChecked(!boxChecked);
+  };
+
+  const handleCheckboxChange = (id: number) => {
+    if (checkedPosts.includes(id)) {
+      setCheckedPosts(checkedPosts.filter((postId) => postId !== id));
+    } else {
+      setCheckedPosts([...checkedPosts, id]);
     }
   };
 
@@ -145,7 +164,7 @@ const ToDoPostsPage = () => {
         )}
       </div>
 
-      <HeaderTitles />
+      <HeaderTitles handleSelectAll={handleSelectAll} boxChecked={boxChecked} />
 
       {posts.map((post) => (
         <div key={post.id}>
@@ -159,6 +178,8 @@ const ToDoPostsPage = () => {
             />
           ) : (
             <ToDoPost
+              checked={checkedPosts.includes(post.id)}
+              onCheckboxChange={() => handleCheckboxChange(post.id)}
               post={post}
               onDelete={onDelete}
               onEdit={() => handleEditPost(post.id)}
@@ -167,6 +188,15 @@ const ToDoPostsPage = () => {
           )}
         </div>
       ))}
+
+      {/* will do delete ALL button later */}
+      {checkedPosts.length > 0 && (
+        <div className={styles.deleteALLBtnContainer}>
+          <button onClick={() => {}} className={styles.deleteALLBtn}>
+            Delete All
+          </button>
+        </div>
+      )}
     </div>
   );
 };

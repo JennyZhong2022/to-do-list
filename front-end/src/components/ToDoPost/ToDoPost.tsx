@@ -18,9 +18,18 @@ interface ToDoPostProps {
   onDelete: (id: number) => Promise<unknown>;
   onEdit: () => void;
   onDuplicate: () => void;
+  checked: boolean;
+  onCheckboxChange: () => void;
 }
 
-const ToDoPost = ({ post, onDelete, onEdit, onDuplicate }: ToDoPostProps) => {
+const ToDoPost = ({
+  post,
+  onDelete,
+  onEdit,
+  onDuplicate,
+  checked,
+  onCheckboxChange,
+}: ToDoPostProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
 
@@ -43,7 +52,12 @@ const ToDoPost = ({ post, onDelete, onEdit, onDuplicate }: ToDoPostProps) => {
 
   return (
     <div className={styles.container}>
-      <input type="checkbox" className={styles.checkbox} />
+      <input
+        type="checkbox"
+        className={styles.checkbox}
+        checked={checked}
+        onChange={onCheckboxChange}
+      />
 
       <div className={styles.taskContainer}>
         <p className={styles.content}>{post.content}</p>
