@@ -17,9 +17,10 @@ interface ToDoPostProps {
   post: ToDoPostResponse;
   onDelete: (id: number) => Promise<unknown>;
   onEdit: () => void;
+  onDuplicate: () => void;
 }
 
-const ToDoPost = ({ post, onDelete, onEdit }: ToDoPostProps) => {
+const ToDoPost = ({ post, onDelete, onEdit, onDuplicate }: ToDoPostProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
 
@@ -51,7 +52,7 @@ const ToDoPost = ({ post, onDelete, onEdit }: ToDoPostProps) => {
         <div className={styles.actionsWrapper} ref={menuRef}>
           {/* show action icons for larger screens */}
           <div className={styles.actionIcons}>
-            <button className={styles.duplicateBtn}>
+            <button onClick={onDuplicate} className={styles.duplicateBtn}>
               <FontAwesomeIcon icon={faClone} className="fa-2x" />
             </button>
             <button onClick={onEdit} className={styles.editBtn}>
@@ -73,7 +74,7 @@ const ToDoPost = ({ post, onDelete, onEdit }: ToDoPostProps) => {
           {/* show dropdown menu for smaller screens */}
           {menuOpen && (
             <div className={styles.dropdownMenu}>
-              <button className={styles.duplicateBtn}>
+              <button onClick={onDuplicate} className={styles.duplicateBtn}>
                 <FontAwesomeIcon icon={faClone} className="fa-1x" />
                 Duplicate
               </button>

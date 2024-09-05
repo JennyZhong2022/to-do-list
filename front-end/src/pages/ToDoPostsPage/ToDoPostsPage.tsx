@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   CategoryResponse,
+  createToDoPost,
   deleteToDoPostById,
   getAllCategories,
   getAllToDoPosts,
@@ -31,7 +32,10 @@ const ToDoPostsPage = () => {
 
   const fetchPosts = () => {
     getAllToDoPosts()
-      .then((data) => setPosts(data))
+      .then((data) => {
+        const sortedData = data.sort((a, b) => b.id - a.id);
+        setPosts(sortedData);
+      })
       .catch((e) => console.log(e));
   };
 
@@ -48,13 +52,27 @@ const ToDoPostsPage = () => {
       .catch((e) => console.log(e));
   };
 
-  // handle edit to do post
+  // handle duplicate todo post
+  const handleDuplicateTodoPost = (post: ToDoPostResponse) => {
+    const duplicatedPost: ToDoPostFormData = {
+      content: post.content,
+      categoryId: post.category.id,
+    };
+
+    createToDoPost(duplicatedPost)
+      .then(() => {
+        fetchPosts();
+      })
+      .catch((e) => console.log(e));
+  };
+
+  // handle edit todo post
 
   const handleEditPost = (id: number) => {
     setEditPostId(id);
   };
 
-  const handleUpdateToDoPost = async (id: number, data: ToDoPostFormData) => {
+  const handleUpdateToDoPost = (id: number, data: ToDoPostFormData) => {
     updateToDoPostById(id, data)
       .then(() => {
         fetchPosts();
@@ -65,7 +83,7 @@ const ToDoPostsPage = () => {
       });
   };
 
-  // handle delete to do post
+  // handle delete todo post
   const onDelete = async (id: number) => {
     const confirmed = window.confirm("Are you sure?");
     if (!confirmed) {
@@ -79,6 +97,8 @@ const ToDoPostsPage = () => {
       setPosts(posts.filter((post) => post.id !== id));
     }
   };
+
+  console.log("posts", posts);
 
   return (
     <div className={styles.todoPageContainer}>
@@ -142,6 +162,7 @@ const ToDoPostsPage = () => {
               post={post}
               onDelete={onDelete}
               onEdit={() => handleEditPost(post.id)}
+              onDuplicate={() => handleDuplicateTodoPost(post)}
             />
           )}
         </div>
