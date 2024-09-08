@@ -30,7 +30,7 @@ The purpose of this project includes:
 
 ---
 
-## Design Goal
+## Design Goals
 
 - **Frontend**: Build a dynamic and interactive website using TypeScript that provides a seamless user experience.
 - **Backend**: Use MySQL to store and manage all product data, Java and Spring Framework
