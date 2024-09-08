@@ -11,13 +11,13 @@ $error-color: #ff0000;
   display: flex;
   justify-content: flex-start;
   gap: 3vw;
-  @media screen and (max-width: 1024px) {
-    gap: 2vw;
-  }
   align-items: center;
   font-size: 1.125rem;
   margin-top: 1.25rem;
 
+  @media screen and (max-width: 1024px) {
+    gap: 2vw;
+  }
   @media screen and (max-width: 480px) {
     margin-top: 0;
     font-size: 0.85rem;
@@ -69,18 +69,16 @@ $error-color: #ff0000;
     .submitBtn {
       font-size: 1rem;
       width: 10vw;
-
-      @media screen and (max-width: 1024px) {
-        font-size: 0.8rem;
-        width: 12vw;
-      }
-
       padding: 0.75rem 1.25rem;
       background-color: $button-background;
       color: $button-color;
       border: none;
       border-radius: $input-border-radius;
       cursor: pointer;
+      @media screen and (max-width: 1024px) {
+        font-size: 0.8rem;
+        width: 12vw;
+      }
       @media screen and (max-width: 480px) {
         font-size: 0.6rem;
         width: 20vw;

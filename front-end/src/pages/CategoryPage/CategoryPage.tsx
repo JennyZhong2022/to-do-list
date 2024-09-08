@@ -14,7 +14,9 @@ const CategoryPage = ({
   setCategories,
 }: CategoryPageProps) => {
   const onDelete = async (id: number) => {
-    const confirmed = window.confirm("Are you sure?");
+    const confirmed = window.confirm(
+      "Deleting a category will also delete all associated tasks. Are you sure you want to proceed?"
+    );
     if (!confirmed) {
       return;
     }
