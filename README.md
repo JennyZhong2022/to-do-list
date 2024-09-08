@@ -13,6 +13,7 @@ The Task Tracking System is a full-stack application designed to help users effi
 
 - [Purpose](#purpose)
 - [Design Goals](#design-goals)
+- [Technologies Used](#Technologies-used)
 - [Features](#features)
 - [Challenges](#challenges)
 - [Known Issues](#known-issues)
@@ -35,6 +36,13 @@ The purpose of this project includes:
 - **Frontend**: Build a dynamic and interactive website using TypeScript that provides a seamless user experience.
 - **Backend**: Use MySQL to store and manage all product data, Java and Spring Framework
 - **Responsive**: Ensure the website is fully responsive and works well across various screen sizes.
+
+## Technologies Used
+
+- **Frontend**: React.js, TypeScript, SCSS
+- **Backend**: Java, Spring
+- **Database**: MySQL
+- **Others**: React-Hook-Form
 
 ## Features
 
