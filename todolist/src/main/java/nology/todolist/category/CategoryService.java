@@ -26,6 +26,10 @@ public class CategoryService {
 
     // newCategory.setName(data.getName().trim());
 
+    if (data.getName() == null || data.getName().trim().isEmpty()) {
+      throw new ServiceValidationException(errors);
+    }
+
     if (repo.existsByName(data.getName().trim())) {
       errors.addError("name", String.format("category with name '%s' already exists", data.getName().trim()));
     }
@@ -53,7 +57,8 @@ public class CategoryService {
     if (result.isEmpty()) {
       return false;
     }
-    this.repo.delete(result.get());
+    // this.repo.delete(result.get());
+    this.repo.deleteById(id);
     return true;
   }
 
