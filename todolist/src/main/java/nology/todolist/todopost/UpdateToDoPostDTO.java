@@ -18,6 +18,14 @@ public class UpdateToDoPostDTO {
     return content;
   }
 
+  public void setContent(String content) {
+    this.content = content;
+  }
+
+  public void setCategoryId(Long categoryId) {
+    this.categoryId = categoryId;
+  }
+
   public Long getCategoryId() {
     return categoryId;
   }

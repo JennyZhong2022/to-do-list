@@ -86,7 +86,8 @@ public class ToDoPostService {
     if (result.isEmpty()) {
       return false;
     }
-    this.repo.delete(result.get());
+    this.repo.deleteById(id);
+    // this.repo.delete(result.get());
     return true;
   }
 
