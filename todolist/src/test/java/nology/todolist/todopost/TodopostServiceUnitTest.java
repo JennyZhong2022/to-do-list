@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -127,6 +128,45 @@ public class TodopostServiceUnitTest {
     assertThrows(ServiceValidationException.class, () -> toDoPostService.createToDoPost(mockTodoPostDTO));
 
     verify(repo, never()).save(any());
+  }
+
+  @Test
+  public void updateTodoPostById_with_same_category_success() throws Exception {
+    Long todoPostId = 1L;
+    UpdateToDoPostDTO mockUpdateTodoPostDTO = new UpdateToDoPostDTO();
+    mockUpdateTodoPostDTO.setContent("clean kitchen");
+    mockUpdateTodoPostDTO.setCategoryId(1L);
+
+    ToDoPost existingTodoPost = new ToDoPost();
+    existingTodoPost.setContent("clean bathroom");
+    Category mockCategory = new Category();
+    existingTodoPost.setCategory(mockCategory);
+
+    when(repo.findById(todoPostId)).thenReturn(Optional.of(existingTodoPost));
+    when(categoryService.findById(mockUpdateTodoPostDTO.getCategoryId())).thenReturn(Optional.of(mockCategory));
+
+    doAnswer(invocation -> {
+      UpdateToDoPostDTO dto = invocation.getArgument(0);
+      ToDoPost post = invocation.getArgument(1);
+      post.setContent(dto.getContent());
+      return null; // void method returns null
+    }).when(mapper).map(any(UpdateToDoPostDTO.class), any(ToDoPost.class));
+
+    when(repo.save(any(ToDoPost.class))).thenAnswer(invocation -> {
+      ToDoPost savedPost = invocation.getArgument(0);
+      return savedPost;
+    });
+
+    Optional<ToDoPost> result = toDoPostService.updateToDoPostById(todoPostId, mockUpdateTodoPostDTO);
+
+    assertTrue(result.isPresent());
+    System.out.println("Result content: " + result.get().getContent());
+    assertEquals("clean kitchen", result.get().getContent());
+    assertEquals(mockCategory, result.get().getCategory());
+
+    verify(repo).findById(todoPostId);
+    verify(mapper).map(mockUpdateTodoPostDTO, existingTodoPost);
+    verify(repo).save(existingTodoPost);
   }
 
   @Test
