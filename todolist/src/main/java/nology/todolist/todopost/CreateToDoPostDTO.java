@@ -24,4 +24,12 @@ public class CreateToDoPostDTO {
     return categoryId;
   }
 
+  public void setContent(String content) {
+    this.content = content;
+  }
+
+  public void setCategoryId(Long categoryId) {
+    this.categoryId = categoryId;
+  }
+
 }
