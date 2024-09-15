@@ -18,11 +18,14 @@ import HeaderTitles from "../../components/HearderTitles/HeaderTitles";
 import { ToDoPostFormData } from "../../components/ToDoPostForm/schema";
 import ToDoPostForm from "../../components/ToDoPostForm/ToDoPostForm";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+
 const ToDoPostsPage = () => {
   const [posts, setPosts] = useState<ToDoPostResponse[]>([]);
   const [addTodoOpen, setAddTodoOpen] = useState(false);
-  const [addCategoryOpen, setAddCategoryOpen] = useState(false);
-  const [addCategoryListOpen, setAddCategoryListOpen] = useState(false);
+  // const [addCategoryOpen, setAddCategoryOpen] = useState(false);
+  // const [addCategoryListOpen, setAddCategoryListOpen] = useState(false);
   const [categories, setCategories] = useState<CategoryResponse[]>([]);
   const [editPostId, setEditPostId] = useState<number | null>(null);
   const [boxChecked, setBoxChecked] = useState(false);
@@ -140,10 +143,10 @@ const ToDoPostsPage = () => {
 
   return (
     <div className={styles.todoPageContainer}>
-      <h1 className={styles.h1}>todo</h1>
-
-      <div className={styles.addBtnContainer}>
-        <button
+      <div className={styles.todoPageTopContainer}>
+        <h1 className={styles.h1}>todo</h1>
+        <div className={styles.addBtnContainer}>
+          {/* <button
           onClick={() => setAddCategoryListOpen(!addCategoryListOpen)}
           className={styles.addBtn}
         >
@@ -154,68 +157,76 @@ const ToDoPostsPage = () => {
           className={styles.addBtn}
         >
           Add Category
-        </button>
-        <button
-          onClick={() => setAddTodoOpen(!addTodoOpen)}
-          className={styles.addBtn}
-        >
-          Add Post
-        </button>
+        </button> */}
+          <button
+            onClick={() => setAddTodoOpen(!addTodoOpen)}
+            className={styles.addBtn}
+          >
+            <FontAwesomeIcon icon={faPlus} className="fa-1x" />
+          </button>
+        </div>
       </div>
 
-      <div className={styles.addForm}>
-        {addCategoryListOpen && (
+      <div className={styles.todoPageContentContainer}>
+        <div className={styles.leftColumn}>
           <CategoryPage
             categories={categories}
             setCategories={setCategories}
             onPostCreated={fetchPosts}
           />
-        )}
-        {addCategoryOpen && (
+
           <CreateCategoryPage onCategoryCreated={fetchCategories} />
-        )}
-        {addTodoOpen && (
-          <CreateToDoPostPage
-            onPostCreated={fetchPosts}
-            categories={categories}
-            onCategoryCreated={fetchCategories}
+        </div>
+
+        <div className={styles.rightColumn}>
+          <div className={styles.addForm}>
+            {addTodoOpen && (
+              <CreateToDoPostPage
+                onPostCreated={fetchPosts}
+                categories={categories}
+                onCategoryCreated={fetchCategories}
+              />
+            )}
+          </div>
+
+          <HeaderTitles
+            handleSelectAll={handleSelectAll}
+            boxChecked={boxChecked}
           />
-        )}
-      </div>
 
-      <HeaderTitles handleSelectAll={handleSelectAll} boxChecked={boxChecked} />
+          {posts.map((post) => (
+            <div key={post.id}>
+              {editPostId === post.id ? (
+                <ToDoPostForm
+                  todo={{ ...post, categoryId: post.category.id }}
+                  onSubmit={(data) => handleUpdateToDoPost(post.id, data)}
+                  formType="edit"
+                  categories={categories}
+                  onCategoryCreated={fetchCategories}
+                />
+              ) : (
+                <ToDoPost
+                  checked={checkedPosts.includes(post.id)}
+                  onCheckboxChange={() => handleCheckboxChange(post.id)}
+                  post={post}
+                  onDelete={onDelete}
+                  onEdit={() => handleEditPost(post.id)}
+                  onDuplicate={() => handleDuplicateTodoPost(post)}
+                />
+              )}
+            </div>
+          ))}
 
-      {posts.map((post) => (
-        <div key={post.id}>
-          {editPostId === post.id ? (
-            <ToDoPostForm
-              todo={{ ...post, categoryId: post.category.id }}
-              onSubmit={(data) => handleUpdateToDoPost(post.id, data)}
-              formType="edit"
-              categories={categories}
-              onCategoryCreated={fetchCategories}
-            />
-          ) : (
-            <ToDoPost
-              checked={checkedPosts.includes(post.id)}
-              onCheckboxChange={() => handleCheckboxChange(post.id)}
-              post={post}
-              onDelete={onDelete}
-              onEdit={() => handleEditPost(post.id)}
-              onDuplicate={() => handleDuplicateTodoPost(post)}
-            />
+          {/* will do delete ALL button later */}
+          {checkedPosts.length > 0 && (
+            <div className={styles.deleteALLBtnContainer}>
+              <button onClick={handleDeleteAll} className={styles.deleteALLBtn}>
+                Delete All
+              </button>
+            </div>
           )}
         </div>
-      ))}
-
-      {/* will do delete ALL button later */}
-      {checkedPosts.length > 0 && (
-        <div className={styles.deleteALLBtnContainer}>
-          <button onClick={handleDeleteAll} className={styles.deleteALLBtn}>
-            Delete All
-          </button>
-        </div>
-      )}
+      </div>
     </div>
   );
 };
