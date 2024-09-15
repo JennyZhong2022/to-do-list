@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import jakarta.validation.Valid;
 import nology.todolist.common.ValidationErrors;
 import nology.todolist.common.exceptions.ServiceValidationException;
-import nology.todolist.todopost.ToDoPost;
 
 @Service
 public class CategoryService {

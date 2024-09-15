@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import nology.todolist.common.exceptions.NotFoundException;
-import nology.todolist.todopost.ToDoPost;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   CategoryResponse,
   createToDoPost,
+  deleteAllToDoPost,
   deleteToDoPostById,
   getAllCategories,
   getAllToDoPosts,
@@ -84,7 +85,7 @@ const ToDoPostsPage = () => {
       });
   };
 
-  // handle delete todo post
+  // handle delete todo post by id
   const onDelete = async (id: number) => {
     const confirmed = window.confirm("Are you sure?");
     if (!confirmed) {
@@ -97,6 +98,24 @@ const ToDoPostsPage = () => {
     if (isConfirmed) {
       setPosts(posts.filter((post) => post.id !== id));
     }
+  };
+
+  // handle delete all todo posts
+  const handleDeleteAll = async () => {
+    const confirmed = window.confirm("Are you sure?");
+    if (!confirmed) {
+      return;
+    }
+
+    deleteAllToDoPost()
+      .then(() => {
+        fetchPosts();
+      })
+
+      .catch((e) => {
+        console.log(e);
+        return false;
+      });
   };
 
   //handle checkbox
@@ -121,7 +140,7 @@ const ToDoPostsPage = () => {
 
   return (
     <div className={styles.todoPageContainer}>
-      <h1 className={styles.h1}>My TO-DO List</h1>
+      <h1 className={styles.h1}>todo</h1>
 
       <div className={styles.addBtnContainer}>
         <button
@@ -192,7 +211,7 @@ const ToDoPostsPage = () => {
       {/* will do delete ALL button later */}
       {checkedPosts.length > 0 && (
         <div className={styles.deleteALLBtnContainer}>
-          <button onClick={() => {}} className={styles.deleteALLBtn}>
+          <button onClick={handleDeleteAll} className={styles.deleteALLBtn}>
             Delete All
           </button>
         </div>
