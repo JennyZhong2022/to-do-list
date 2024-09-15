@@ -2,6 +2,7 @@
 package nology.todolist.todopost;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -21,6 +22,8 @@ import org.mockito.Spy;
 import org.modelmapper.ModelMapper;
 
 import java.util.Optional;
+import java.util.List;
+import java.util.Collections;
 
 import nology.todolist.category.Category;
 import nology.todolist.category.CategoryService;
@@ -180,6 +183,26 @@ public class TodopostServiceUnitTest {
 
     toDoPostService.deleteToDoPostById(todoPostId);
     verify(repo).deleteById(todoPostId);
+  }
+
+  @Test
+  public void deleteAllTodoPost_success() {
+
+    List<ToDoPost> mockToDoPosts = List.of(mock(ToDoPost.class));
+
+    when(repo.findAll()).thenReturn(mockToDoPosts);
+
+    boolean result = toDoPostService.deleteAllToDoPost();
+    verify(repo).deleteAll();
+    assertTrue(result);
+  }
+
+  @Test
+  public void deleteAllTodoPost_noPosts_success() {
+    when(repo.findAll()).thenReturn(Collections.emptyList());
+    boolean result = toDoPostService.deleteAllToDoPost();
+    verify(repo, never()).deleteAll();
+    assertFalse(result);
   }
 
 }

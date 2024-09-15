@@ -64,4 +64,14 @@ public class ToDoController {
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
+  @DeleteMapping
+  public ResponseEntity<ToDoPost> deleteAllToDoPost() {
+    boolean result = this.toDoPostService.deleteAllToDoPost();
+    if (result == false) {
+      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    } else {
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+  }
 }

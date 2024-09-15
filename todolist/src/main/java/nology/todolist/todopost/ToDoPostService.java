@@ -91,4 +91,13 @@ public class ToDoPostService {
     return true;
   }
 
+  public boolean deleteAllToDoPost() {
+    List<ToDoPost> result = this.findAllToDoPosts();
+    if (result.isEmpty()) {
+      return false;
+    }
+    this.repo.deleteAll();
+    return true;
+  }
+
 }
