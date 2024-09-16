@@ -155,7 +155,7 @@ const ToDoPostsPage = () => {
   return (
     <div className={styles.todoPageContainer}>
       <div className={styles.todoPageTopContainer}>
-        <h1 className={styles.h1}>todo</h1>
+        <h1 className={styles.h1}>my to-do</h1>
         <div className={styles.addBtnContainer}>
           <button
             onClick={() => setAddTodoOpen(!addTodoOpen)}
