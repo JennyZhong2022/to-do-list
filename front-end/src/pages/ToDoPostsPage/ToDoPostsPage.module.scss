@@ -17,7 +17,7 @@
 
   @media screen and (max-width: 480px) {
     font-size: 0.65rem;
-    padding: calc(0.875rem - 1px) calc(1rem - 1px);
+    padding: calc(0.875rem - 1px) calc(1.2rem - 1px);
     margin-left: 0px;
     min-height: 2.6rem;
   }
@@ -73,7 +73,6 @@
   .todoPageContentContainer {
     display: flex;
     flex-direction: row;
-    padding-top: 30px;
     @media screen and (max-width: 1024px) {
       gap: 5px;
     }
@@ -82,11 +81,15 @@
     }
     @media screen and (max-width: 480px) {
       flex-direction: column;
-      padding-top: 0;
+      gap: 1rem;
     }
 
     .categoryContainer {
       flex: 1;
+      padding-top: 10px;
+      @media screen and (max-width: 480px) {
+        padding-top: 0;
+      }
     }
 
     .postsContainer {

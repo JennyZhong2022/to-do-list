@@ -27,6 +27,9 @@ $error-color: #ff0000;
     margin-bottom: 1.25rem;
     display: flex;
     align-items: center;
+    @media screen and (max-width: 480px) {
+      margin-bottom: 0;
+    }
 
     // label {
     //   display: block;
