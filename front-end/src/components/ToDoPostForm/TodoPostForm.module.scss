@@ -1,5 +1,101 @@
-// @media screen and (max-width: 480) {
-//   label[id="todoPostContent"] {
-//     display: none;
-//   }
-// }
+$form-border-radius: 5px;
+$input-padding: 12px;
+$input-border-radius: 5px;
+$input-border: 1px solid #d1cfcf;
+$input-background: #ededed;
+$button-background: #19bab2;
+$button-color: #fff;
+$error-color: #ff0000;
+
+.form {
+  display: flex;
+  justify-content: flex-start;
+  gap: 3vw;
+  align-items: center;
+  font-size: 1.125rem;
+  margin-top: 1.25rem;
+
+  @media screen and (max-width: 1024px) {
+    gap: 2vw;
+  }
+  @media screen and (max-width: 480px) {
+    margin-top: 0;
+    font-size: 0.85rem;
+  }
+
+  .field {
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+
+    // label {
+    //   display: block;
+    //   margin-bottom: 0.3125rem;
+    //   font-weight: bold;
+    //   margin-right: 1.25rem;
+
+    //   @media screen and (max-width: 480px) {
+    //     margin-right: 0.5rem;
+    //   }
+    // }
+
+    input,
+    select {
+      padding: $input-padding;
+      border: $input-border;
+      border-radius: $input-border-radius;
+      background-color: $input-background;
+
+      @media screen and (max-width: 480px) {
+        padding: 0.5rem;
+        width: 20vw;
+      }
+    }
+
+    input[id="content"] {
+      width: 40vw;
+
+      @media screen and (max-width: 480px) {
+        width: 30vw;
+      }
+    }
+
+    small {
+      display: block;
+      margin-top: 0.3125rem;
+      color: $error-color;
+    }
+
+    .submitBtn {
+      font-size: 1rem;
+      width: 10vw;
+      padding: 0.75rem 1.25rem;
+      background-color: $button-background;
+      color: $button-color;
+      border: none;
+      border-radius: $input-border-radius;
+      cursor: pointer;
+      @media screen and (max-width: 1024px) {
+        font-size: 0.8rem;
+        width: 12vw;
+      }
+      @media screen and (max-width: 480px) {
+        font-size: 0.6rem;
+        width: 20vw;
+        padding: 0.75rem 0.25rem;
+      }
+
+      &:hover {
+        background-color: darken($button-background, 5%);
+      }
+    }
+  }
+
+  .categoryForm {
+    @media screen and (max-width: 480px) {
+      input {
+        width: 10vw;
+      }
+    }
+  }
+}

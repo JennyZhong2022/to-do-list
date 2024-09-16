@@ -1,5 +1,6 @@
 package nology.todolist.category;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,10 +21,14 @@ public class CategoryService {
   @Autowired
   private ModelMapper mapper;
 
+  private static final List<String> VALID_COLORS = Arrays.asList("#f7d0cf", "#d5e4f5", "#d1cefb", "#dff1d8");
+
   public Category create(@Valid CreateCategoryDTO data) throws Exception {
     ValidationErrors errors = new ValidationErrors();
 
-    // newCategory.setName(data.getName().trim());
+    if (!VALID_COLORS.contains(data.getColor())) {
+      errors.addError("color", "Invalid color selected");
+    }
 
     if (data.getName() == null || data.getName().trim().isEmpty()) {
       throw new ServiceValidationException(errors);

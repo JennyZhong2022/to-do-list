@@ -1,5 +1,5 @@
 import { schema, ToDoPostFormData } from "./schema";
-import styles from "../CategoryForm/CategoryForm.module.scss";
+import styles from "./TodoPostForm.module.scss";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { CategoryResponse } from "../../services/todo-post";

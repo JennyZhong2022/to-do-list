@@ -1,23 +1,49 @@
 .categoryContainer {
-  background-color: rgb(246, 234, 220);
   border-radius: 5px;
   padding: 5px 25px;
   position: relative;
+  color: #000; // Default to black text
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px; // Add some space between categories
+
   @media screen and (max-width: 480px) {
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     padding: 5px 15px;
   }
 
+  p {
+    margin: 0;
+    font-weight: bold;
+  }
+
   button {
+    background-color: transparent;
     border: none;
-    background-color: rgb(246, 234, 220);
-    position: absolute;
-    top: 5px;
-    right: 0;
-    padding: 0;
     cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+    }
+
     @media screen and (max-width: 480px) {
-      top: 0px;
+      padding: 3px;
+
+      svg {
+        width: 12px;
+        height: 12px;
+      }
     }
   }
 }

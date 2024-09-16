@@ -6,6 +6,7 @@ import {
   deleteToDoPostById,
   getAllCategories,
   getAllToDoPosts,
+  getCategoriesColors,
   ToDoPostResponse,
   updateToDoPostById,
 } from "../../services/todo-post";
@@ -20,16 +21,26 @@ import ToDoPostForm from "../../components/ToDoPostForm/ToDoPostForm";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { ColorType } from "../../components/CategoryForm/schema";
 
 const ToDoPostsPage = () => {
   const [posts, setPosts] = useState<ToDoPostResponse[]>([]);
   const [addTodoOpen, setAddTodoOpen] = useState(false);
-  // const [addCategoryOpen, setAddCategoryOpen] = useState(false);
-  // const [addCategoryListOpen, setAddCategoryListOpen] = useState(false);
   const [categories, setCategories] = useState<CategoryResponse[]>([]);
   const [editPostId, setEditPostId] = useState<number | null>(null);
   const [boxChecked, setBoxChecked] = useState(false);
   const [checkedPosts, setCheckedPosts] = useState<number[]>([]);
+
+  const [colors, setColors] = useState<ColorType[]>([]);
+
+  useEffect(() => {
+    getCategoriesColors()
+      .then((fetchedColors) => setColors(fetchedColors as ColorType[]))
+      .catch((e) => {
+        console.error("Failed to fetch colors", e);
+        setColors([]);
+      });
+  }, []);
 
   // fetch todo posts
   useEffect(() => {
@@ -53,7 +64,7 @@ const ToDoPostsPage = () => {
   const fetchCategories = () => {
     getAllCategories()
       .then((data) => {
-        setCategories(data), console.log(data);
+        setCategories(data), console.log("categories", data);
       })
       .catch((e) => console.log(e));
   };
@@ -105,7 +116,7 @@ const ToDoPostsPage = () => {
 
   // handle delete all todo posts
   const handleDeleteAll = async () => {
-    const confirmed = window.confirm("Are you sure?");
+    const confirmed = window.confirm("Are you sure to delete all todo?");
     if (!confirmed) {
       return;
     }
@@ -146,18 +157,6 @@ const ToDoPostsPage = () => {
       <div className={styles.todoPageTopContainer}>
         <h1 className={styles.h1}>todo</h1>
         <div className={styles.addBtnContainer}>
-          {/* <button
-          onClick={() => setAddCategoryListOpen(!addCategoryListOpen)}
-          className={styles.addBtn}
-        >
-          Categories List
-        </button>
-        <button
-          onClick={() => setAddCategoryOpen(!addCategoryOpen)}
-          className={styles.addBtn}
-        >
-          Add Category
-        </button> */}
           <button
             onClick={() => setAddTodoOpen(!addTodoOpen)}
             className={styles.addBtn}
@@ -168,17 +167,20 @@ const ToDoPostsPage = () => {
       </div>
 
       <div className={styles.todoPageContentContainer}>
-        <div className={styles.leftColumn}>
+        <div className={styles.categoryContainer}>
           <CategoryPage
             categories={categories}
             setCategories={setCategories}
             onPostCreated={fetchPosts}
           />
 
-          <CreateCategoryPage onCategoryCreated={fetchCategories} />
+          <CreateCategoryPage
+            onCategoryCreated={fetchCategories}
+            colors={colors}
+          />
         </div>
 
-        <div className={styles.rightColumn}>
+        <div className={styles.postsContainer}>
           <div className={styles.addForm}>
             {addTodoOpen && (
               <CreateToDoPostPage

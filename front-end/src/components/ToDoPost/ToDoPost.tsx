@@ -61,8 +61,12 @@ const ToDoPost = ({
 
       <div className={styles.taskContainer}>
         <p className={styles.content}>{post.content}</p>
-        <h3 className={styles.category}>{post.category.name}</h3>
-
+        <div
+          className={styles.categoryContainer}
+          style={{ backgroundColor: post.category.color }}
+        >
+          <h3 className={styles.category}>{post.category.name}</h3>
+        </div>
         <div className={styles.actionsWrapper} ref={menuRef}>
           {/* show action icons for larger screens */}
           <div className={styles.actionIcons}>

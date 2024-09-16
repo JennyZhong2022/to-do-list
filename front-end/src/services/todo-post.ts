@@ -11,12 +11,14 @@ export interface ToDoPostResponse {
   category: {
     id: number;
     name: string;
+    color: string;
   };
 }
 
 export interface CategoryResponse {
   id: number;
   name: string;
+  color: string;
 }
 
 export const getAllToDoPosts = async () => {
@@ -128,4 +130,17 @@ export const deleteAllToDoPost = async () => {
     throw new Error("Failed to fetch");
   }
   return true;
+};
+
+export const getCategoriesColors = async () => {
+  const response = await fetch(baseURL + "/categories/colors", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (!response.ok) {
+    throw new Error("Failed to fetch colors");
+  }
+  return (await response.json()) as string[];
 };

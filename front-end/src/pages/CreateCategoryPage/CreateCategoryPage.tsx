@@ -1,29 +1,38 @@
-import { useNavigate } from "react-router-dom"
-import { createCategory } from "../../services/todo-post"
-import { CategoryFormData } from "../../components/CategoryForm/schema"
-import CategoryForm from "../../components/CategoryForm/CategoryForm"
+import { useNavigate } from "react-router-dom";
+import { createCategory } from "../../services/todo-post";
+import {
+  CategoryFormData,
+  ColorType,
+} from "../../components/CategoryForm/schema";
+import CategoryForm from "../../components/CategoryForm/CategoryForm";
 
-interface CreateCategoryPageProps{
-  onCategoryCreated:()=> void
+interface CreateCategoryPageProps {
+  onCategoryCreated: () => void;
+  colors: ColorType[];
 }
 
-const CreateCategoryPage = ({onCategoryCreated}:CreateCategoryPageProps) => {
-  const navigate = useNavigate()
+const CreateCategoryPage = ({
+  onCategoryCreated,
+  colors,
+}: CreateCategoryPageProps) => {
+  const navigate = useNavigate();
 
-  const onSubmit = async(data: CategoryFormData) => {
+  console.log(colors);
+
+  const onSubmit = async (data: CategoryFormData) => {
     createCategory(data)
       .then(() => {
-        onCategoryCreated()
-        navigate('/')
+        onCategoryCreated();
+        navigate("/");
       })
-      .catch(e=>console.log(e))
-  }
+      .catch((e) => console.error("Failed to create category", e));
+  };
 
   return (
     <>
-      <CategoryForm  onSubmit={onSubmit} />
+      <CategoryForm onSubmit={onSubmit} colors={colors} />
     </>
-  )
-}
+  );
+};
 
-export default CreateCategoryPage
+export default CreateCategoryPage;

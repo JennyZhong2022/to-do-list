@@ -21,6 +21,9 @@ public class Category extends BaseEntity {
   @Column(unique = true)
   private String name;
 
+  @Column
+  private String color;
+
   @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
   // cascade = CascadeType.ALL,, orphanRemoval = true: Removes child entities
   @JsonIgnoreProperties("category")
@@ -28,6 +31,14 @@ public class Category extends BaseEntity {
 
   public Category() {
 
+  }
+
+  public String getColor() {
+    return color;
+  }
+
+  public void setColor(String color) {
+    this.color = color;
   }
 
   public String getName() {

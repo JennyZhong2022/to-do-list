@@ -18,6 +18,15 @@
     text-align: center;
     flex: 1;
 
+    .categoryContainer {
+      border-radius: 5px;
+      padding: 0px 10px;
+      position: relative;
+      color: #000; // Default to black text
+      display: flex;
+      align-items: center;
+    }
+
     .content {
       flex: 2;
       font-size: 18px;
@@ -28,7 +37,7 @@
     .category {
       flex: 1;
       text-align: center;
-      font-size: 18px;
+      font-size: 1rem;
       font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
         "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
     }
