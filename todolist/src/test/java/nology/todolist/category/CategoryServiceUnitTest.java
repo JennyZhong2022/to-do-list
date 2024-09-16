@@ -56,6 +56,7 @@ public class CategoryServiceUnitTest {
 
     CreateCategoryDTO mockCategoryDTO = new CreateCategoryDTO();
     mockCategoryDTO.setName("work");
+    mockCategoryDTO.setColor("#d5e4f5");
     Category mockCategory = new Category();
 
     when(mapper.map(mockCategoryDTO, Category.class)).thenReturn(mockCategory);

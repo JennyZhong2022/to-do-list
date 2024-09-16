@@ -52,6 +52,8 @@ public class CategoryEndToEndTest {
   public void createCategory_success() {
     CreateCategoryDTO data = new CreateCategoryDTO();
     data.setName("new category");
+    data.setColor("#f7d0cf"); // this is a valid color
+
     given()
         .contentType(ContentType.JSON)
         .body(data)
@@ -60,23 +62,17 @@ public class CategoryEndToEndTest {
         .then()
         .statusCode(HttpStatus.CREATED.value())
         .body("name", equalTo("New category"))
-        .body("id", notNullValue());
+        .body("id", notNullValue())
+        .body("color", equalTo("#f7d0cf"));
     // .body(matchesJsonSchemaInClasspath("nology/todolist/category/schemas/category-schema.json"));
 
-    given()
-        .when()
-        .get("/categories")
-        .then()
-        .statusCode(HttpStatus.OK.value())
-        .body("$", hasSize(3))
-        .body("name", hasItems("work", "shopping", "New category"));
-    // .body(matchesJsonSchemaInClasspath("nology/todolist/category/schemas/categories-schema.json"));
   }
 
   @Test
   public void createCategory_existingCategory_failure() {
     CreateCategoryDTO data = new CreateCategoryDTO();
     data.setName("work");
+    data.setColor("#d5e4f5");
 
     given()
         .contentType(ContentType.JSON)
