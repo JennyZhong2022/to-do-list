@@ -32,7 +32,9 @@ const CategoryForm = ({ onSubmit, colors }: CategoryFormProps) => {
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.field}>
-        {/* <label htmlFor="category" id="categoryLabel"></label> */}
+        <label htmlFor="category" id="categoryLabel">
+          Category:
+        </label>
         <div>
           <input id="category" {...register("name", { required: true })} />
           {errors?.name && (

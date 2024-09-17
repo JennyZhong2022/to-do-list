@@ -28,7 +28,7 @@ $error-color: #ff0000;
     display: flex;
     align-items: center;
     @media screen and (max-width: 480px) {
-      margin-bottom: 0;
+      margin-bottom: 0.2rem;
     }
 
     // label {
@@ -90,14 +90,6 @@ $error-color: #ff0000;
 
       &:hover {
         background-color: darken($button-background, 5%);
-      }
-    }
-  }
-
-  .categoryForm {
-    @media screen and (max-width: 480px) {
-      input {
-        width: 10vw;
       }
     }
   }

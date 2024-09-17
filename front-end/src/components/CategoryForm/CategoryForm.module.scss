@@ -33,17 +33,6 @@ $error-color: #ff0000;
       margin-bottom: 0;
     }
 
-    // label {
-    //   display: block;
-    //   margin-bottom: 0.3125rem;
-    //   font-weight: bold;
-    //   margin-right: 1.25rem;
-
-    //   @media screen and (max-width: 480px) {
-    //     margin-right: 0.5rem;
-    //   }
-    // }
-
     input {
       padding: $input-padding;
       border: $input-border;
@@ -110,5 +99,18 @@ $error-color: #ff0000;
         }
       }
     }
+  }
+}
+
+label[id="categoryLabel"] {
+  display: none;
+}
+
+@media screen and (max-width: 480px) {
+  label[id="categoryLabel"] {
+    display: block;
+    margin-bottom: 0.3125rem;
+    font-weight: bold;
+    margin-right: 0.5rem;
   }
 }
