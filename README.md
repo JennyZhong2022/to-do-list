@@ -27,8 +27,8 @@ The purpose of this project includes:
 
 - **Learning Goal**: To practice and demonstrate capabilities in React and the Java Spring framework as a full-stack solution.
 - **Functional**: To offer users a dynamic way to manage tasks including add, edit, duplicate, and delete functionalities.
-- **Unit Test**: Ensuring methods or functions are run successfully by Unit Test.
-- **CI/CD**: Use github to auto run test.
+- **Unit Test**: Ensured methods and functions run successfully through unit testing.
+- **CI/CD**: Used GitHub to automate test execution.
 - **Adaptive**: Ensuring a responsive layout that works across various devices and screen sizes.
 
 ---
