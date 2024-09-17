@@ -30,6 +30,7 @@ const CustomDropdown = ({ colors, onSelect }: CustomDropdownProps) => {
   return (
     <div className={styles.dropdown}>
       <div className={styles.dropdownHeader} onClick={toggleDropdown}>
+        {/* default a color */}
         {selectedColor ? (
           <span
             className={styles.colorSwatch}
