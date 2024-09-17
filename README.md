@@ -53,6 +53,8 @@ The purpose of this project includes:
 
 ## <img src="/front-end/src/assets/responsive.jpg" alt="responsive image" width="200"/>
 
+## <img src="/front-end/src/assets/responsive2.jpg" alt="responsive image" width="200"/>
+
 ## Challenges
 
 - **Edit Task in Place**: One of the most challenging parts was allowing users to edit their task content in place, rather than navigating to another page. So I implemented the updating data logic directly on the spot where the task item is displayed. So, when a user clicks the edit icon, it switches to an editable form in the same spot. This provided a more user-friendly experience.
