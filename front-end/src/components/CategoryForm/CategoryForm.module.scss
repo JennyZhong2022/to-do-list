@@ -85,14 +85,14 @@ $error-color: #ff0000;
       .submitBtn {
         font-size: 1rem;
         padding: 0.85rem 1.5rem;
-        @media screen and (max-width: 480px) {
-          padding: 0.55rem 0.7rem;
-        }
         background-color: $button-background;
         color: $button-color;
         border: none;
         border-radius: $input-border-radius;
         cursor: pointer;
+        @media screen and (max-width: 480px) {
+          padding: 0.55rem 0.7rem;
+        }
 
         &:hover {
           background-color: darken($button-background, 10%);

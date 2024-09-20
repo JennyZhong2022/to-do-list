@@ -3,9 +3,6 @@
 
   .dropdownHeader {
     padding: 10px;
-    @media screen and (max-width: 480px) {
-      padding: 5px;
-    }
     border: 1px solid #ccc;
     border-radius: 6%;
     cursor: pointer;
@@ -13,6 +10,9 @@
     align-items: center;
     justify-content: center;
     height: 25px;
+    @media screen and (max-width: 480px) {
+      padding: 5px;
+    }
 
     .colorSwatch {
       width: 30px;
