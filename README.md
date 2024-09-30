@@ -4,7 +4,7 @@ The Task Tracking System is a full-stack application designed to help users effi
 
 ## Demo
 
-- Here's a link to a live demo of the Task Tracking System:[Live Demo](???)
+- Here's a link to a live demo of the Task Tracking System:[Live Demo](http://jennytodo-list.s3-website-ap-southeast-2.amazonaws.com/)
   ![Demo](./front-end/src/assets/demo.gif)
 
 ---
